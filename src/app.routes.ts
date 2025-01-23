@@ -5,6 +5,9 @@ import {Documentation} from './app/pages/documentation/documentation';
 import {Landing} from './app/pages/landing/landing';
 import {Notfound} from './app/pages/notfound/notfound';
 import {CategoriesComponent} from "./app/features/categories/categories.component";
+import {RecipesComponent} from "./app/features/recipes/recipes.component";
+import {AdministratorsComponent} from "./app/features/administrators/administrators.component";
+import {UsersComponent} from "./app/features/users/users.component";
 
 export const appRoutes: Routes = [
     {
@@ -13,6 +16,9 @@ export const appRoutes: Routes = [
         children: [
             {path: '', component: Dashboard},
             {path: 'categories', component: CategoriesComponent},
+            {path: 'recipes', component: RecipesComponent},
+            {path: 'administrators', component: AdministratorsComponent},
+            {path: 'users', component: UsersComponent},
             {path: 'uikit', loadChildren: () => import('./app/pages/uikit/uikit.routes')},
             {path: 'documentation', component: Documentation},
             {path: 'pages', loadChildren: () => import('./app/pages/pages.routes')}
