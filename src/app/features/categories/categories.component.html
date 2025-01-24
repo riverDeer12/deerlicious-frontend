@@ -3,4 +3,65 @@
     <p>This is categories page.</p>
 </div>
 
-
+<p-table
+    #categoriesTable
+    [value]="categories"
+    dataKey="id"
+    [rows]="10"
+    [rowHover]="true"
+    [showGridlines]="true"
+    [paginator]="true"
+    [globalFilterFields]="['name', 'description']"
+    responsiveLayout="scroll"
+>
+    <ng-template>
+        <div class="flex justify-between items-center flex-column sm:flex-row">
+            <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash"
+                    (click)="clear(categoriesTable)"></button>
+            <p-iconfield iconPosition="left" class="ml-auto">
+                <p-inputicon>
+                    <i class="pi pi-search"></i>
+                </p-inputicon>
+                <input pInputText type="text" (input)="onGlobalFilter(categoriesTable, $event)" placeholder="Search keyword"/>
+            </p-iconfield>
+        </div>
+    </ng-template>
+    <ng-template #header>
+        <tr>
+            <th style="min-width: 12rem">
+                <div class="flex justify-between items-center">
+                    Name
+                    <p-columnFilter type="text" field="name" display="menu"
+                                    placeholder="Search by name"></p-columnFilter>
+                </div>
+            </th>
+            <th style="min-width: 12rem">
+                <div class="flex justify-between items-center">
+                    Description
+                    <p-columnFilter type="text" field="description" display="menu"
+                                    placeholder="Search by description"></p-columnFilter>
+                </div>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-category>
+        <tr>
+            <td>
+                {{ category.name }}
+            </td>
+            <td>
+                {{ category.description }}
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template #emptymessage>
+        <tr>
+            <td colspan="8">No categories found.</td>
+        </tr>
+    </ng-template>
+    <ng-template #loadingbody>
+        <tr>
+            <td colspan="8">Loading categories data. Please wait.</td>
+        </tr>
+    </ng-template>
+</p-table>
