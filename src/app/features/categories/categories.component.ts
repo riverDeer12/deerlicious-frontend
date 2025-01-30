@@ -14,6 +14,7 @@ import {Table, TableModule} from "primeng/table";
 import {TagModule} from "primeng/tag";
 import {ToggleButtonModule} from "primeng/togglebutton";
 import {Category} from "./models/category";
+import {CategoryService} from "./services/category.service";
 
 @Component({
     selector: 'app-categories',
@@ -44,7 +45,15 @@ export class CategoriesComponent {
 
     @ViewChild(`filter`) filter!: ElementRef;
 
-    constructor() {
+    constructor(private categoryService: CategoryService) {
+    }
+
+    ngOnInit(): void {
+        this.categoryService.getAllCategories().subscribe((response: Category[]) => {
+            this.categories = response.map((x: Category) =>
+                Object.assign(new Category(), x)
+            );
+        })
     }
 
     onGlobalFilter(table: Table, event: Event) {
