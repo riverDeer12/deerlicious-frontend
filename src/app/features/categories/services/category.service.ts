@@ -17,7 +17,7 @@ export class CategoryService {
     getCategory = (categoryId: string) =>
         this.http.get<Category[]>(environment.apiUrl + '/categories/' + categoryId);
     createCategory = (request: DefaultPostRequest) =>
-        this.http.get<Category[]>(environment.apiUrl + '/categories/');
+        this.http.get<Category>(environment.apiUrl + '/categories/');
     updateCategory = (categoryId: string, request: DefaultUpdateRequest) =>
         this.http.put<Category>(environment.apiUrl + '/categories/' + categoryId, request);
     deleteCategory = (categoryId: string) =>

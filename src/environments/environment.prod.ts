@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://rimap.uniri.hr/api',
+    apiUrl: 'https://deerlicious.com/api',
 };

@@ -1,6 +1,5 @@
 import {Component, ElementRef, Input, ViewChild} from '@angular/core';
 import {ButtonDirective, ButtonModule} from "primeng/button";
-import {CurrencyPipe, DatePipe} from "@angular/common";
 import {IconFieldModule} from "primeng/iconfield";
 import {InputIconModule} from "primeng/inputicon";
 import {InputTextModule} from "primeng/inputtext";
@@ -22,8 +21,6 @@ import {CategoryService} from "./services/category.service";
     imports: [
         ButtonModule,
         ButtonDirective,
-        CurrencyPipe,
-        DatePipe,
         IconFieldModule,
         InputIconModule,
         InputTextModule,
