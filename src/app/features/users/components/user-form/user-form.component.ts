@@ -1,31 +1,30 @@
 import {Component, Input} from '@angular/core';
-import {FormType} from "../../../../enums/form-type";
-import {Category} from "../../models/category";
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {MessageService} from "primeng/api";
-import {Router} from "@angular/router";
-import {ValidationService} from "../../../../services/validation.service";
-import {InputText} from "primeng/inputtext";
-import {Button} from "primeng/button";
+import {ButtonModule} from "primeng/button";
+import {InputTextModule} from "primeng/inputtext";
 import {CommonModule} from "@angular/common";
-import {CategoryService} from "../../services/category.service";
-
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormType} from "../../../../enums/form-type";
+import {ValidationService} from "../../../../services/validation.service";
+import {Router} from "@angular/router";
+import {MessageService} from "primeng/api";
+import {User} from "../../models/user";
+import {UserService} from "../../services/user.service";
 
 @Component({
-    selector: 'app-category-form',
-    standalone: true,
+    selector: 'app-user-form',
     imports: [
+        ButtonModule,
+        InputTextModule,
         CommonModule,
-        ReactiveFormsModule,
-        InputText,
-        Button
+        ReactiveFormsModule
     ],
-    templateUrl: './category-form.component.html',
-    styleUrl: './category-form.component.scss'
+    standalone: true,
+    templateUrl: './user-form.component.html',
+    styleUrl: './user-form.component.scss'
 })
-export class CategoryFormComponent {
+export class UserFormComponent {
     @Input() type!: FormType;
-    @Input() category!: Category;
+    @Input() user!: User;
 
     form!: FormGroup;
 
@@ -35,7 +34,7 @@ export class CategoryFormComponent {
         public validationService: ValidationService,
         private formBuilder: FormBuilder,
         private router: Router,
-        private categoryService: CategoryService,
+        private userService: UserService,
         private messageService: MessageService) {
     }
 
@@ -60,7 +59,7 @@ export class CategoryFormComponent {
             this.loadingData = false;
 
             this.type == FormType.Create ?
-                this.createCategory() : this.updateCategory();
+                this.createUser() : this.updateUser();
         }
     }
 
@@ -69,50 +68,50 @@ export class CategoryFormComponent {
 
     private initCreateForm() {
         this.form = this.formBuilder.group({
-            name: ['', [Validators.required, Validators.maxLength(50)]],
-            description: ['', [Validators.required, Validators.maxLength(50)]]
+            username: ['', [Validators.required, Validators.maxLength(50)]],
+            email: ['', [Validators.required, Validators.maxLength(50)]]
         })
     }
 
     private initUpdateForm() {
         this.form = this.formBuilder.group({
-            firstName: [this.category.name, [Validators.required, Validators.maxLength(50)]],
-            lastName: [this.category.description, [Validators.required, Validators.maxLength(50)]],
+            username: [this.user.username, [Validators.required, Validators.maxLength(50)]],
+            email: [this.user.email, [Validators.required, Validators.maxLength(50)]],
         })
     }
 
-    private createCategory() {
-        this.categoryService.createCategory(this.form.value).subscribe((response: Category) => {
-            this.category = Object.assign(response as Category);
+    private createUser() {
+        this.userService.createUser(this.form.value).subscribe((response: User) => {
+            this.user = Object.assign(response as User);
             this.messageService.add({
                 severity: 'success',
                 summary: 'Success',
-                detail: 'Category is Created Successfully.'
+                detail: 'User is Created Successfully.'
             });
             this.loadingData = false;
         }, error => {
             this.messageService.add({
                 severity: 'error',
-                summary: 'Error Creating Category',
+                summary: 'Error Creating User',
                 detail: error.message
             });
             this.loadingData = false;
         })
     }
 
-    private updateCategory() {
-        this.categoryService.updateCategory(this.category.id, this.form.value).subscribe((response: Category) => {
-            this.category = Object.assign(response as Category);
+    private updateUser() {
+        this.userService.updateUser(this.user.id, this.form.value).subscribe((response: User) => {
+            this.user = Object.assign(response as User);
             this.messageService.add({
                 severity: 'success',
                 summary: 'Success',
-                detail: 'Category is Updated Successfully.'
+                detail: 'User is Updated Successfully.'
             });
             this.loadingData = false;
         }, error => {
             this.messageService.add({
                 severity: 'error',
-                summary: 'Error Updating Category',
+                summary: 'Error Updating User',
                 detail: error.message
             });
             this.loadingData = false;

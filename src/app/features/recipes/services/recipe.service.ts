@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {environment} from "../../../../../environments/environment";
-import {DefaultPostRequest} from "../../../../models/default-post-request";
-import {DefaultUpdateRequest} from "../../../../models/default-update-request";
+import {environment} from "../../../../environments/environment";
+import {DefaultPostRequest} from "../../../models/default-post-request";
+import {DefaultUpdateRequest} from "../../../models/default-update-request";
 import {Recipe} from "../models/recipe";
 
 @Injectable({
@@ -15,7 +15,7 @@ export class RecipeService {
 
     getAllRecipes = () => this.http.get<Recipe[]>(environment.apiUrl + '/recipes');
     getRecipe = (recipeId: string) =>
-        this.http.get<Recipe[]>(environment.apiUrl + '/recipes/' + recipeId);
+        this.http.get<Recipe>(environment.apiUrl + '/recipes/' + recipeId);
     createRecipe = (request: DefaultPostRequest) =>
         this.http.get<Recipe>(environment.apiUrl + '/recipes/');
     updateRecipe = (recipeId: string, request: DefaultUpdateRequest) =>

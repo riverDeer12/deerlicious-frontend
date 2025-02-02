@@ -10,6 +10,12 @@
                     "style": "scss",
                     "skipTests": true,
                     "standalone": true
+                },
+                "@schematics/angular:service": {
+                    "skipTests": true
+                },
+                "@schematics/angular:class": {
+                    "skipTests": true
                 }
             },
             "root": "",

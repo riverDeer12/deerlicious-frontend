@@ -4,8 +4,8 @@ import {IconField} from "primeng/iconfield";
 import {InputIcon} from "primeng/inputicon";
 import {InputText} from "primeng/inputtext";
 import {Table, TableModule} from "primeng/table";
-import {Recipe} from "./components/models/recipe";
-import {RecipeService} from "./components/services/recipe.service";
+import {Recipe} from "./models/recipe";
+import {RecipeService} from "./services/recipe.service";
 
 @Component({
     selector: 'app-recipes',
