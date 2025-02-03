@@ -1,24 +1,30 @@
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
 import {AuthenticationService} from "../services/authentication.service";
-import {Button} from "primeng/button";
-import {InputText} from "primeng/inputtext";
-import {NgIf} from "@angular/common";
+import {ButtonModule} from "primeng/button";
+import {InputTextModule} from "primeng/inputtext";
+import {CommonModule} from "@angular/common";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {FormType} from "../../../enums/form-type";
-import {Recipe} from "../../recipes/models/recipe";
 import {ValidationService} from "../../../services/validation.service";
 import {Router} from "@angular/router";
-import {RecipeService} from "../../recipes/services/recipe.service";
 import {MessageService} from "primeng/api";
 import {AuthResponse} from "../models/auth-response";
+import {PasswordModule} from "primeng/password";
+import {CheckboxModule} from "primeng/checkbox";
+import {AppFloatingConfigurator} from "../../../layout/component/app.floatingconfigurator";
 
 @Component({
     selector: 'app-login',
     imports: [
-        Button,
-        InputText,
-        NgIf,
-        ReactiveFormsModule
+        CommonModule,
+        ButtonModule,
+        InputTextModule,
+        ReactiveFormsModule,
+        PasswordModule,
+        CheckboxModule,
+        AppFloatingConfigurator
+    ],
+    providers: [
+        MessageService
     ],
     standalone: true,
     templateUrl: './login.component.html',
@@ -79,8 +85,13 @@ export class LoginComponent {
             this.messageService.add({
                 severity: 'success',
                 summary: 'Success',
-                detail: 'Login Is Successfully.'
+                detail: 'Login Is Successful.'
             });
+
+            localStorage.setItem('token', this.authResponse.token)
+
+            this.router.navigateByUrl('').then();
+
             this.loadingData = false;
         }, error => {
             this.messageService.add({

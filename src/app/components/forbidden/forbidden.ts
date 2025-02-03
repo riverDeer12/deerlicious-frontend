@@ -4,7 +4,7 @@ import { ButtonModule } from 'primeng/button';
 import { AppFloatingConfigurator } from '../../layout/component/app.floatingconfigurator';
 
 @Component({
-    selector: 'app-notfound',
+    selector: 'app-forbidden',
     standalone: true,
     imports: [RouterModule, AppFloatingConfigurator, ButtonModule],
     template: ` <app-floating-configurator />
@@ -65,4 +65,4 @@ import { AppFloatingConfigurator } from '../../layout/component/app.floatingconf
             </div>
         </div>`
 })
-export class Notfound {}
+export class Forbidden {}
