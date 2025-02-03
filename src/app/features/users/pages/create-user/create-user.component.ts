@@ -12,5 +12,5 @@ import {FormType} from "../../../../enums/form-type";
     styleUrl: './create-user.component.scss'
 })
 export class CreateUserComponent {
-    formType!: FormType.Create;
+    formType = FormType.Create;
 }

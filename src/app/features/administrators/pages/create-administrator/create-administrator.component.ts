@@ -12,5 +12,5 @@ import {AdministratorFormComponent} from "../../components/administrator-form/ad
     styleUrl: './create-administrator.component.scss'
 })
 export class CreateAdministratorComponent {
-    formType!: FormType.Create;
+    formType = FormType.Create;
 }

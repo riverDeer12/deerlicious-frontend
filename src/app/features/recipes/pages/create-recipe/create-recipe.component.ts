@@ -12,5 +12,5 @@ import {RecipeFormComponent} from "../../components/recipe-form/recipe-form.comp
     styleUrl: './create-recipe.component.scss'
 })
 export class CreateRecipeComponent {
-    formType!: FormType.Create;
+    formType = FormType.Create;
 }

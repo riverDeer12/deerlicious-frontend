@@ -1,6 +1,6 @@
-import {HttpEvent, HttpHandler, HttpInterceptorFn, HttpRequest} from '@angular/common/http';
+import {HttpInterceptorFn} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {Observable, tap} from 'rxjs';
+import {tap} from 'rxjs';
 import {LoaderService, LoadingOverlayRef} from '../services/loader.service';
 import {AuthenticationService} from "../features/authentication/services/authentication.service";
 import {inject} from "@angular/core";
