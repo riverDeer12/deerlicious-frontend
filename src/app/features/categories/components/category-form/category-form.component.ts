@@ -6,7 +6,7 @@ import {MessageService} from "primeng/api";
 import {Router} from "@angular/router";
 import {ValidationService} from "../../../../services/validation.service";
 import {InputText} from "primeng/inputtext";
-import {Button} from "primeng/button";
+import {ButtonModule} from "primeng/button";
 import {CommonModule} from "@angular/common";
 import {CategoryService} from "../../services/category.service";
 
@@ -18,7 +18,10 @@ import {CategoryService} from "../../services/category.service";
         CommonModule,
         ReactiveFormsModule,
         InputText,
-        Button
+        ButtonModule
+    ],
+    providers: [
+        MessageService
     ],
     templateUrl: './category-form.component.html',
     styleUrl: './category-form.component.scss'

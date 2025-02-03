@@ -14,6 +14,7 @@ import {TagModule} from "primeng/tag";
 import {ToggleButtonModule} from "primeng/togglebutton";
 import {Category} from "./models/category";
 import {CategoryService} from "./services/category.service";
+import {RouterLink} from "@angular/router";
 
 @Component({
     selector: 'app-categories',
@@ -32,7 +33,8 @@ import {CategoryService} from "./services/category.service";
         SliderModule,
         TableModule,
         TagModule,
-        ToggleButtonModule
+        ToggleButtonModule,
+        RouterLink
     ],
     templateUrl: './categories.component.html',
     styleUrl: './categories.component.scss'

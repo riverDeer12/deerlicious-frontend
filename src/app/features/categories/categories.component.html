@@ -1,3 +1,8 @@
+<div class="my-3">
+    <p-button [routerLink]="'create'"
+              type="button" iconPos="right" icon="pi pi-plus" label="New Category"/>
+</div>
+
 <p-table
     #categoriesTable
     [value]="categories"
@@ -17,7 +22,8 @@
                 <p-inputicon>
                     <i class="pi pi-search"></i>
                 </p-inputicon>
-                <input pInputText type="text" (input)="onGlobalFilter(categoriesTable, $event)" placeholder="Search keyword"/>
+                <input pInputText type="text" (input)="onGlobalFilter(categoriesTable, $event)"
+                       placeholder="Search keyword"/>
             </p-iconfield>
         </div>
     </ng-template>

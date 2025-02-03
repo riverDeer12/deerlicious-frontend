@@ -18,6 +18,9 @@ import {UserService} from "../../services/user.service";
         CommonModule,
         ReactiveFormsModule
     ],
+    providers: [
+        MessageService
+    ],
     standalone: true,
     templateUrl: './user-form.component.html',
     styleUrl: './user-form.component.scss'

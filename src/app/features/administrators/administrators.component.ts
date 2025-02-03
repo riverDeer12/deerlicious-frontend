@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, ViewChild} from '@angular/core';
-import {ButtonDirective} from "primeng/button";
+import {Button, ButtonDirective} from "primeng/button";
 import {IconField} from "primeng/iconfield";
 import {InputIcon} from "primeng/inputicon";
 import {InputText} from "primeng/inputtext";
@@ -8,6 +8,7 @@ import {User} from "../users/models/user";
 import {UserService} from "../users/services/user.service";
 import {Administrator} from "./models/administrator";
 import {AdministratorService} from "./services/administrator.service";
+import {RouterLink} from "@angular/router";
 
 @Component({
     selector: 'app-administrators',
@@ -16,7 +17,9 @@ import {AdministratorService} from "./services/administrator.service";
         IconField,
         InputIcon,
         InputText,
-        TableModule
+        TableModule,
+        Button,
+        RouterLink
     ],
     standalone: true,
     templateUrl: './administrators.component.html',

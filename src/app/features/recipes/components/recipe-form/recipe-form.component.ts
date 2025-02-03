@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
-import {Button} from "primeng/button";
-import {InputText} from "primeng/inputtext";
-import {NgIf} from "@angular/common";
+import {Button, ButtonModule} from "primeng/button";
+import {InputText, InputTextModule} from "primeng/inputtext";
+import {CommonModule, NgIf} from "@angular/common";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {FormType} from "../../../../enums/form-type";
 import {ValidationService} from "../../../../services/validation.service";
@@ -13,10 +13,13 @@ import {RecipeService} from "../../services/recipe.service";
 @Component({
     selector: 'app-recipe-form',
     imports: [
-        Button,
-        InputText,
-        NgIf,
+        CommonModule,
+        ButtonModule,
+        InputTextModule,
         ReactiveFormsModule
+    ],
+    providers: [
+        MessageService
     ],
     standalone: true,
     templateUrl: './recipe-form.component.html',

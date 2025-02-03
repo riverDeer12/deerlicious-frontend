@@ -1,11 +1,12 @@
 import {Component, ElementRef, Input, ViewChild} from '@angular/core';
-import {ButtonDirective} from "primeng/button";
+import {Button, ButtonDirective} from "primeng/button";
 import {IconField} from "primeng/iconfield";
 import {InputIcon} from "primeng/inputicon";
 import {InputText} from "primeng/inputtext";
 import {Table, TableModule} from "primeng/table";
 import {User} from "./models/user";
 import {UserService} from "./services/user.service";
+import {RouterLink} from "@angular/router";
 
 @Component({
     selector: 'app-users',
@@ -14,7 +15,9 @@ import {UserService} from "./services/user.service";
         IconField,
         InputIcon,
         InputText,
-        TableModule
+        TableModule,
+        Button,
+        RouterLink
     ],
     standalone: true,
     templateUrl: './users.component.html',
