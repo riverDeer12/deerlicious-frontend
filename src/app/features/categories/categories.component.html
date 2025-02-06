@@ -4,29 +4,17 @@
 </div>
 
 <p-table
-    #categoriesTable
     [value]="categories"
     dataKey="id"
     [rows]="10"
+    sortField="createdAt"
+    [sortOrder]="-1"
     [rowHover]="true"
     [showGridlines]="true"
     [paginator]="true"
     [globalFilterFields]="['name', 'description']"
     responsiveLayout="scroll"
 >
-    <ng-template>
-        <div class="flex justify-between items-center flex-column sm:flex-row">
-            <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash"
-                    (click)="clear(categoriesTable)"></button>
-            <p-iconfield iconPosition="left" class="ml-auto">
-                <p-inputicon>
-                    <i class="pi pi-search"></i>
-                </p-inputicon>
-                <input pInputText type="text" (input)="onGlobalFilter(categoriesTable, $event)"
-                       placeholder="Search keyword"/>
-            </p-iconfield>
-        </div>
-    </ng-template>
     <ng-template #header>
         <tr>
             <th style="min-width: 12rem">
@@ -43,6 +31,21 @@
                                     placeholder="Search by description"></p-columnFilter>
                 </div>
             </th>
+            <th style="min-width: 12rem">
+                <div class="flex justify-between items-center">
+                    Created At
+                    <p-columnFilter type="date" field="createdAt" display="menu"
+                                    placeholder="Search by description"></p-columnFilter>
+                </div>
+            </th>
+            <th style="min-width: 12rem">
+                <div class="flex justify-between items-center">
+                    Last Changes
+                    <p-columnFilter type="date" field="updatedAt" display="menu"
+                                    placeholder="Search by description"></p-columnFilter>
+                </div>
+            </th>
+            <th style="width:11rem"></th>
         </tr>
     </ng-template>
     <ng-template #body let-category>
@@ -52,6 +55,20 @@
             </td>
             <td>
                 {{ category.description }}
+            </td>
+            <td>
+                {{ category.createdAt | date : 'dd.MM.yyyy. HH:mm:ss'}}
+            </td>
+            <td>
+                {{ category.updatedAt | date : 'dd.MM.yyyy. HH:mm:ss' }}
+            </td>
+            <td>
+                <p-button (click)="openInfoDialog(category)" class="mr-2" icon="pi pi-info" severity="secondary"
+                          [rounded]="true" [outlined]="true"/>
+                <p-button (click)="openUpdateDialog(category)" class="mr-2" icon="pi pi-pencil" severity="secondary"
+                          [rounded]="true" [outlined]="true"/>
+                <p-button (click)="openDeleteDialog(category)" icon="pi pi-trash" severity="danger" [rounded]="true"
+                          [outlined]="true"/>
             </td>
         </tr>
     </ng-template>

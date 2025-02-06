@@ -29,7 +29,7 @@ export const DefaultInterceptor: HttpInterceptorFn = (request, next) => {
                     loadingRef?.close();
                     if (error.status === 401) {
                         localStorage.removeItem('token');
-                        router.navigateByUrl('auth/login');
+                        router.navigateByUrl('authentication/login');
                     } else if (error.status === 403) {
                         router.navigateByUrl('forbidden');
                     } else if (error.status === 500) {

@@ -9,12 +9,15 @@ import {RatingModule} from "primeng/rating";
 import {RippleModule} from "primeng/ripple";
 import {SelectModule} from "primeng/select";
 import {SliderModule} from "primeng/slider";
-import {Table, TableModule} from "primeng/table";
+import {TableModule} from "primeng/table";
 import {TagModule} from "primeng/tag";
 import {ToggleButtonModule} from "primeng/togglebutton";
 import {Category} from "./models/category";
 import {CategoryService} from "./services/category.service";
 import {RouterLink} from "@angular/router";
+import {DatePipe} from "@angular/common";
+import {DialogService} from "primeng/dynamicdialog";
+import {DialogFormComponent} from "../../components/dialog-form/dialog-form.component";
 
 @Component({
     selector: 'app-categories',
@@ -34,7 +37,11 @@ import {RouterLink} from "@angular/router";
         TableModule,
         TagModule,
         ToggleButtonModule,
-        RouterLink
+        RouterLink,
+        DatePipe
+    ],
+    providers: [
+        DialogService
     ],
     templateUrl: './categories.component.html',
     styleUrl: './categories.component.scss'
@@ -44,7 +51,7 @@ export class CategoriesComponent {
 
     @ViewChild(`filter`) filter!: ElementRef;
 
-    constructor(private categoryService: CategoryService) {
+    constructor(private categoryService: CategoryService, private dialogService: DialogService) {
     }
 
     ngOnInit(): void {
@@ -55,12 +62,39 @@ export class CategoriesComponent {
         })
     }
 
-    onGlobalFilter(table: Table, event: Event) {
-        table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+    openInfoDialog(category: any) {
+        const dialogRef = this.dialogService.open(DialogFormComponent, {
+            header: 'Select a Product',
+            width: '50vw',
+            modal: true,
+            breakpoints: {
+                '960px': '75vw',
+                '640px': '90vw'
+            },
+        });
     }
 
-    clear(table: Table) {
-        table.clear();
-        this.filter.nativeElement.value = '';
+    openUpdateDialog(category: any) {
+        const dialogRef = this.dialogService.open(DialogFormComponent, {
+            header: 'Select a Product',
+            width: '50vw',
+            modal: true,
+            breakpoints: {
+                '960px': '75vw',
+                '640px': '90vw'
+            },
+        });
+    }
+
+    openDeleteDialog(category: any) {
+        const dialogRef = this.dialogService.open(DialogFormComponent, {
+            header: 'Select a Product',
+            width: '50vw',
+            modal: true,
+            breakpoints: {
+                '960px': '75vw',
+                '640px': '90vw'
+            },
+        });
     }
 }
