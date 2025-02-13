@@ -1,5 +1,5 @@
 <div class="my-3">
-    <p-button [routerLink]="'create'"
+    <p-button (click)="openCreateDialog()"
               type="button" iconPos="right" icon="pi pi-plus" label="New Category"/>
 </div>
 
@@ -67,7 +67,7 @@
                           [rounded]="true" [outlined]="true"/>
                 <p-button (click)="openUpdateDialog(category)" class="mr-2" icon="pi pi-pencil" severity="secondary"
                           [rounded]="true" [outlined]="true"/>
-                <p-button (click)="openDeleteDialog(category)" icon="pi pi-trash" severity="danger" [rounded]="true"
+                <p-button (click)="confirmDelete(category)" icon="pi pi-trash" severity="danger" [rounded]="true"
                           [outlined]="true"/>
             </td>
         </tr>

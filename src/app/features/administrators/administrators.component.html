@@ -42,6 +42,7 @@
                                     placeholder="Search by last name"></p-columnFilter>
                 </div>
             </th>
+            <th style="width: 11rem"></th>
         </tr>
     </ng-template>
     <ng-template #body let-administrator>
@@ -51,6 +52,14 @@
             </td>
             <td>
                 {{ administrator.lastName }}
+            </td>
+            <td>
+                <p-button (click)="openInfoDialog(administrator)" class="mr-2" icon="pi pi-info" severity="secondary"
+                          [rounded]="true" [outlined]="true"/>
+                <p-button (click)="openUpdateDialog(administrator)" class="mr-2" icon="pi pi-pencil" severity="secondary"
+                          [rounded]="true" [outlined]="true"/>
+                <p-button (click)="confirmDelete(administrator)" icon="pi pi-trash" severity="danger" [rounded]="true"
+                          [outlined]="true"/>
             </td>
         </tr>
     </ng-template>
