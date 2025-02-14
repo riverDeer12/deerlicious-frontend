@@ -4,4 +4,9 @@ export class Administrator {
     lastName!: string;
     createdAt!: Date;
     updatedAt!: Date;
+    isDeleted!: boolean;
+
+    get status(): string {
+        return this.isDeleted ? 'Inactive' : 'Active';
+    }
 }

@@ -13,12 +13,13 @@ import {DialogService} from 'primeng/dynamicdialog';
 import {EntityType} from "../../enums/entity-type";
 import {FormType} from "../../enums/form-type";
 import {DialogInfoComponent} from "../../components/dialog-info/dialog-info.component";
+import {DatePipe} from "@angular/common";
 
 @Component({
     selector: 'app-administrators',
-    imports: [ButtonDirective, IconField, InputIcon, InputText, TableModule, Button, RouterLink],
+    imports: [ButtonDirective, IconField, InputIcon, InputText, TableModule, Button, RouterLink, DatePipe],
     standalone: true,
-    providers: [DialogService, ConfirmationService],
+    providers: [DialogService],
     templateUrl: './administrators.component.html',
     styleUrl: './administrators.component.scss'
 })
@@ -81,7 +82,7 @@ export class AdministratorsComponent {
 
     confirmDelete(administrator: Administrator) {
         this.confirmationService.confirm({
-            message: 'Are you sure that you want to delete this administrator?',
+            message: 'Are you sure that you want to deactivate this administrator?',
             header: 'Confirm deletion of ' + administrator.lastName,
             closable: true,
             closeOnEscape: true,
@@ -100,13 +101,13 @@ export class AdministratorsComponent {
                         this.messageService.add({
                             severity: 'success',
                             summary: 'Success',
-                            detail: 'Administrator has been deleted.'
+                            detail: 'Administrator has been deactivated.'
                         });
                     }, error => {
                         this.messageService.add({
                             severity: 'error',
                             summary: 'Error',
-                            detail: 'Error deleting administrator.'
+                            detail: 'Error deactivating administrator.'
                         });
                     });
             }

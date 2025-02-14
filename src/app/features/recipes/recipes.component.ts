@@ -12,6 +12,7 @@ import {DialogService} from 'primeng/dynamicdialog';
 import {EntityType} from "../../enums/entity-type";
 import {FormType} from "../../enums/form-type";
 import {DialogInfoComponent} from "../../components/dialog-info/dialog-info.component";
+import {DatePipe} from "@angular/common";
 
 @Component({
     selector: 'app-recipes',
@@ -21,10 +22,11 @@ import {DialogInfoComponent} from "../../components/dialog-info/dialog-info.comp
         InputIcon,
         InputText,
         TableModule,
-        Button
+        Button,
+        DatePipe
     ],
     standalone: true,
-    providers: [DialogService, MessageService, ConfirmationService],
+    providers: [DialogService],
     templateUrl: './recipes.component.html',
     styleUrl: './recipes.component.scss'
 })
@@ -89,7 +91,7 @@ export class RecipesComponent {
 
     confirmDelete(recipe: Recipe) {
         this.confirmationService.confirm({
-            message: 'Are you sure that you want to delete this recipe?',
+            message: 'Are you sure that you want to deactivate this recipe?',
             header: 'Confirm deletion of ' + recipe.title,
             closable: true,
             closeOnEscape: true,
@@ -108,13 +110,13 @@ export class RecipesComponent {
                         this.messageService.add({
                             severity: 'success',
                             summary: 'Success',
-                            detail: 'Recipe has been deleted.'
+                            detail: 'Recipe has been deactivated.'
                         });
                     }, error => {
                         this.messageService.add({
                             severity: 'error',
                             summary: 'Error',
-                            detail: 'Error deleting recipe.'
+                            detail: 'Error deactivating recipe.'
                         });
                     });
             }

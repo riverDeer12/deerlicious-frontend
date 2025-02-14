@@ -41,7 +41,7 @@ import {DialogInfoComponent} from "../../components/dialog-info/dialog-info.comp
         ToggleButtonModule,
         DatePipe
     ],
-    providers: [DialogService, ConfirmationService],
+    providers: [DialogService],
     templateUrl: './categories.component.html',
     styleUrl: './categories.component.scss'
 })
@@ -97,7 +97,7 @@ export class CategoriesComponent implements OnInit {
 
     confirmDelete(category: Category) {
         this.confirmationService.confirm({
-            message: 'Are you sure that you want to delete this category?',
+            message: 'Are you sure that you want to deactivate this category?',
             header: 'Confirm deletion of ' + category.name,
             closable: true,
             closeOnEscape: true,
@@ -112,17 +112,17 @@ export class CategoriesComponent implements OnInit {
             },
             accept: () => {
                 this.categoryService.deleteCategory(category.id)
-                    .subscribe((response) => {
+                    .subscribe(() => {
                         this.messageService.add({
                             severity: 'success',
                             summary: 'Success',
-                            detail: 'Category has been deleted.'
+                            detail: 'Category has been deactivated.'
                         });
-                    }, error => {
+                    }, () => {
                         this.messageService.add({
                             severity: 'error',
                             summary: 'Error',
-                            detail: 'Error deleting category.'
+                            detail: 'Error deactivating category.'
                         });
                     });
             }

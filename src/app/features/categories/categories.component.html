@@ -26,23 +26,23 @@
             </th>
             <th style="min-width: 12rem">
                 <div class="flex justify-between items-center">
-                    Description
-                    <p-columnFilter type="text" field="description" display="menu"
-                                    placeholder="Search by description"></p-columnFilter>
-                </div>
-            </th>
-            <th style="min-width: 12rem">
-                <div class="flex justify-between items-center">
                     Created At
                     <p-columnFilter type="date" field="createdAt" display="menu"
-                                    placeholder="Search by description"></p-columnFilter>
+                                    placeholder="Search by date"></p-columnFilter>
                 </div>
             </th>
             <th style="min-width: 12rem">
                 <div class="flex justify-between items-center">
                     Last Changes
                     <p-columnFilter type="date" field="updatedAt" display="menu"
-                                    placeholder="Search by description"></p-columnFilter>
+                                    placeholder="Search by date"></p-columnFilter>
+                </div>
+            </th>
+            <th style="min-width: 12rem">
+                <div class="flex justify-between items-center">
+                    Status
+                    <p-columnFilter type="bool" field="isDeleted" display="menu"
+                                    placeholder="Search by status"></p-columnFilter>
                 </div>
             </th>
             <th style="width:11rem"></th>
@@ -54,13 +54,13 @@
                 {{ category.name }}
             </td>
             <td>
-                {{ category.description }}
-            </td>
-            <td>
                 {{ category.createdAt | date : 'dd.MM.yyyy. HH:mm:ss'}}
             </td>
             <td>
                 {{ category.updatedAt | date : 'dd.MM.yyyy. HH:mm:ss' }}
+            </td>
+            <td>
+                {{ category.status }}
             </td>
             <td>
                 <p-button (click)="openInfoDialog(category)" class="mr-2" icon="pi pi-info" severity="secondary"
