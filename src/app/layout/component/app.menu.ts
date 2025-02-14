@@ -26,6 +26,10 @@ export class AppMenu {
                 items: [{label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/']}]
             },
             {
+                label: 'Administrators',
+                items: [{label: 'List of Administrators', icon: 'pi pi-fw pi-users', routerLink: ['/administrators']}]
+            },
+            {
                 label: 'Categories',
                 items: [{label: 'List of Categories', icon: 'pi pi-fw pi-bookmark', routerLink: ['/categories']}]
             },
@@ -36,10 +40,6 @@ export class AppMenu {
             {
                 label: 'Users',
                 items: [{label: 'List of Users', icon: 'pi pi-fw pi-users', routerLink: ['/users']}]
-            },
-            {
-                label: 'Administrators',
-                items: [{label: 'List of Administrators', icon: 'pi pi-fw pi-users', routerLink: ['/administrators']}]
             }
         ];
     }

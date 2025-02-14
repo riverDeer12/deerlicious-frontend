@@ -11,7 +11,6 @@ import {ConfirmationService, MessageService} from 'primeng/api';
 import {DialogService} from 'primeng/dynamicdialog';
 import {EntityType} from "../../enums/entity-type";
 import {FormType} from "../../enums/form-type";
-import {Category} from "../categories/models/category";
 import {DialogInfoComponent} from "../../components/dialog-info/dialog-info.component";
 
 @Component({

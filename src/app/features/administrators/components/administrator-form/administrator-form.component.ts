@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
-import {Button, ButtonModule} from "primeng/button";
-import {InputText, InputTextModule} from "primeng/inputtext";
+import {ButtonModule} from "primeng/button";
+import {InputTextModule} from "primeng/inputtext";
 import {CommonModule, NgIf} from "@angular/common";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {FormType} from "../../../../enums/form-type";
@@ -9,6 +9,8 @@ import {Router} from "@angular/router";
 import {MessageService} from "primeng/api";
 import {Administrator} from "../../models/administrator";
 import {AdministratorService} from "../../services/administrator.service";
+import {RedirectType} from "../../../../enums/redirect-type";
+import {HelperService} from "../../../../services/helper.service";
 
 @Component({
     selector: 'app-administrator-form',
@@ -18,9 +20,6 @@ import {AdministratorService} from "../../services/administrator.service";
         InputTextModule,
         ReactiveFormsModule
     ],
-    providers: [
-        MessageService
-    ],
     standalone: true,
     templateUrl: './administrator-form.component.html',
     styleUrl: './administrator-form.component.scss'
@@ -28,6 +27,9 @@ import {AdministratorService} from "../../services/administrator.service";
 export class AdministratorFormComponent {
     @Input() type!: FormType;
     @Input() administrator!: Administrator;
+    @Input() redirectType!: RedirectType;
+    @Input() dialogId!: string;
+    @Input() returnUrl!: string;
 
     form!: FormGroup;
 
@@ -37,6 +39,7 @@ export class AdministratorFormComponent {
         public validationService: ValidationService,
         private formBuilder: FormBuilder,
         private router: Router,
+        private helperService: HelperService,
         private administratorService: AdministratorService,
         private messageService: MessageService) {
     }
@@ -61,9 +64,12 @@ export class AdministratorFormComponent {
 
             this.loadingData = false;
 
-            this.type == FormType.Create ?
-                this.createAdministrator() : this.updateAdministrator();
+            return;
+
         }
+
+        this.type == FormType.Create ?
+            this.createAdministrator() : this.updateAdministrator();
     }
 
     private initForm = () => this.type == FormType.Create ?
@@ -91,6 +97,9 @@ export class AdministratorFormComponent {
                 summary: 'Success',
                 detail: 'Administrator is Created Successfully.'
             });
+            this.helperService
+                .redirectUserAfterSubmit(this.redirectType, this.returnUrl, this.dialogId);
+
             this.loadingData = false;
         }, error => {
             this.messageService.add({
@@ -110,6 +119,9 @@ export class AdministratorFormComponent {
                 summary: 'Success',
                 detail: 'Administrator is Updated Successfully.'
             });
+            this.helperService
+                .redirectUserAfterSubmit(this.redirectType, this.returnUrl, this.dialogId);
+
             this.loadingData = false;
         }, error => {
             this.messageService.add({

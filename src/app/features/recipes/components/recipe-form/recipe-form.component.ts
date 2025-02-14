@@ -9,6 +9,8 @@ import {Router} from "@angular/router";
 import {MessageService} from "primeng/api";
 import {Recipe} from "../../models/recipe";
 import {RecipeService} from "../../services/recipe.service";
+import {RedirectType} from "../../../../enums/redirect-type";
+import {HelperService} from "../../../../services/helper.service";
 
 @Component({
     selector: 'app-recipe-form',
@@ -18,9 +20,6 @@ import {RecipeService} from "../../services/recipe.service";
         InputTextModule,
         ReactiveFormsModule
     ],
-    providers: [
-        MessageService
-    ],
     standalone: true,
     templateUrl: './recipe-form.component.html',
     styleUrl: './recipe-form.component.scss'
@@ -28,6 +27,9 @@ import {RecipeService} from "../../services/recipe.service";
 export class RecipeFormComponent {
     @Input() type!: FormType;
     @Input() recipe!: Recipe;
+    @Input() redirectType!: RedirectType;
+    @Input() dialogId!: string;
+    @Input() returnUrl!: string;
 
     form!: FormGroup;
 
@@ -37,6 +39,7 @@ export class RecipeFormComponent {
         public validationService: ValidationService,
         private formBuilder: FormBuilder,
         private router: Router,
+        private helperService: HelperService,
         private recipeService: RecipeService,
         private messageService: MessageService) {
     }
@@ -93,6 +96,9 @@ export class RecipeFormComponent {
                 summary: 'Success',
                 detail: 'Recipe is Created Successfully.'
             });
+            this.helperService
+                .redirectUserAfterSubmit(this.redirectType, this.returnUrl, this.dialogId);
+
             this.loadingData = false;
         }, error => {
             this.messageService.add({
@@ -112,6 +118,9 @@ export class RecipeFormComponent {
                 summary: 'Success',
                 detail: 'Recipe is Updated Successfully.'
             });
+            this.helperService
+                .redirectUserAfterSubmit(this.redirectType, this.returnUrl, this.dialogId);
+
             this.loadingData = false;
         }, error => {
             this.messageService.add({

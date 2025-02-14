@@ -1,23 +1,27 @@
 <app-category-form
     *ngIf="contentType === entityType.Category"
     [type]="formType"
+    [redirectType]="redirectType"
     [category]="data">
 </app-category-form>
 
 <app-recipe-form
     *ngIf="contentType === entityType.Recipe"
     [type]="formType"
+    [redirectType]="redirectType"
     [recipe]="data">
 </app-recipe-form>
 
 <app-administrator-form
     *ngIf="contentType === entityType.Administrator"
     [type]="formType"
+    [redirectType]="redirectType"
     [administrator]="data">
 </app-administrator-form>
 
 <app-user-form
     *ngIf="contentType === entityType.User"
     [type]="formType"
+    [redirectType]="redirectType"
     [user]="data">
 </app-user-form>

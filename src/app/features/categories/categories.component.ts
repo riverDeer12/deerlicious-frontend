@@ -41,7 +41,7 @@ import {DialogInfoComponent} from "../../components/dialog-info/dialog-info.comp
         ToggleButtonModule,
         DatePipe
     ],
-    providers: [DialogService, ConfirmationService, MessageService],
+    providers: [DialogService, ConfirmationService],
     templateUrl: './categories.component.html',
     styleUrl: './categories.component.scss'
 })

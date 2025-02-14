@@ -23,9 +23,6 @@ import {AppFloatingConfigurator} from "../../../layout/component/app.floatingcon
         CheckboxModule,
         AppFloatingConfigurator
     ],
-    providers: [
-        MessageService
-    ],
     standalone: true,
     templateUrl: './login.component.html',
     styleUrl: './login.component.scss'

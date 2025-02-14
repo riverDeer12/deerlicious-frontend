@@ -12,14 +12,13 @@ import {ConfirmationService, MessageService} from 'primeng/api';
 import {DialogService} from 'primeng/dynamicdialog';
 import {EntityType} from "../../enums/entity-type";
 import {FormType} from "../../enums/form-type";
-import {Recipe} from "../recipes/models/recipe";
 import {DialogInfoComponent} from "../../components/dialog-info/dialog-info.component";
 
 @Component({
     selector: 'app-administrators',
     imports: [ButtonDirective, IconField, InputIcon, InputText, TableModule, Button, RouterLink],
     standalone: true,
-    providers: [DialogService, ConfirmationService, MessageService],
+    providers: [DialogService, ConfirmationService],
     templateUrl: './administrators.component.html',
     styleUrl: './administrators.component.scss'
 })

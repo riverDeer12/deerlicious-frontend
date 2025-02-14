@@ -13,6 +13,8 @@ import {
     AdministratorFormComponent
 } from "../../features/administrators/components/administrator-form/administrator-form.component";
 import {UserFormComponent} from "../../features/users/components/user-form/user-form.component";
+import {RedirectType} from "../../enums/redirect-type";
+import {DialogHelperService} from "../../services/dialog-helper.service";
 
 @Component({
     selector: 'app-dialog-form',
@@ -32,17 +34,22 @@ import {UserFormComponent} from "../../features/users/components/user-form/user-
 })
 export class DialogFormComponent {
     contentType!: EntityType;
+    dialogId!: string;
     formType!: FormType;
     data: any;
+
+    redirectType = RedirectType.CloseDialog;
 
     public get entityType(): typeof EntityType {
         return EntityType;
     }
 
     constructor(private dialogRef: DynamicDialogRef,
+                private dialogHelperService: DialogHelperService,
                 private dialogConfig: DynamicDialogConfig) {
         this.initSettings();
         this.initContentType();
+        this.setDialogCloseListener();
     }
 
     ngOnInit(): void {
@@ -60,6 +67,7 @@ export class DialogFormComponent {
         this.dialogConfig.style = DialogFormConfig.style;
     }
 
+
     /**
      * Set dialog content type.
      */
@@ -67,5 +75,18 @@ export class DialogFormComponent {
         this.contentType = this.dialogConfig.data.contentType;
         this.formType = this.dialogConfig.data.formType;
         this.data = this.dialogConfig.data.data;
+        this.dialogId = this.dialogConfig.data.dialogId;
+    }
+
+    /**
+     * Set listener for
+     * close dialog trigger changes.
+     */
+    setDialogCloseListener(): void {
+        this.dialogHelperService.getDialogStatus().subscribe((response: string) => {
+            if (this.dialogId === response as string) {
+                this.dialogRef.close(response);
+            }
+        })
     }
 }

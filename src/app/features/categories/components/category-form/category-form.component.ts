@@ -9,7 +9,8 @@ import {InputText} from "primeng/inputtext";
 import {ButtonModule} from "primeng/button";
 import {CommonModule} from "@angular/common";
 import {CategoryService} from "../../services/category.service";
-
+import {RedirectType} from "../../../../enums/redirect-type";
+import {HelperService} from "../../../../services/helper.service";
 
 @Component({
     selector: 'app-category-form',
@@ -20,15 +21,15 @@ import {CategoryService} from "../../services/category.service";
         InputText,
         ButtonModule
     ],
-    providers: [
-        MessageService
-    ],
     templateUrl: './category-form.component.html',
     styleUrl: './category-form.component.scss'
 })
 export class CategoryFormComponent {
     @Input() type!: FormType;
     @Input() category!: Category;
+    @Input() redirectType!: RedirectType;
+    @Input() dialogId!: string;
+    @Input() returnUrl!: string;
 
     form!: FormGroup;
 
@@ -39,6 +40,7 @@ export class CategoryFormComponent {
         private formBuilder: FormBuilder,
         private router: Router,
         private categoryService: CategoryService,
+        private helperService: HelperService,
         private messageService: MessageService) {
     }
 
@@ -62,9 +64,11 @@ export class CategoryFormComponent {
 
             this.loadingData = false;
 
-            this.type == FormType.Create ?
-                this.createCategory() : this.updateCategory();
+            return;
         }
+
+        this.type == FormType.Create ?
+            this.createCategory() : this.updateCategory();
     }
 
     private initForm = () => this.type == FormType.Create ?
@@ -87,12 +91,18 @@ export class CategoryFormComponent {
     private createCategory() {
         this.categoryService.createCategory(this.form.value).subscribe((response: Category) => {
             this.category = Object.assign(response as Category);
+
             this.messageService.add({
                 severity: 'success',
                 summary: 'Success',
                 detail: 'Category is Created Successfully.'
             });
+
+            this.helperService
+                .redirectUserAfterSubmit(this.redirectType, this.returnUrl, this.dialogId);
+
             this.loadingData = false;
+
         }, error => {
             this.messageService.add({
                 severity: 'error',
@@ -106,12 +116,18 @@ export class CategoryFormComponent {
     private updateCategory() {
         this.categoryService.updateCategory(this.category.id, this.form.value).subscribe((response: Category) => {
             this.category = Object.assign(response as Category);
+
             this.messageService.add({
                 severity: 'success',
                 summary: 'Success',
                 detail: 'Category is Updated Successfully.'
             });
+
+            this.helperService
+                .redirectUserAfterSubmit(this.redirectType, this.returnUrl, this.dialogId)
+
             this.loadingData = false;
+
         }, error => {
             this.messageService.add({
                 severity: 'error',

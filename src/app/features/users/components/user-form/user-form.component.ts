@@ -9,6 +9,8 @@ import {Router} from "@angular/router";
 import {MessageService} from "primeng/api";
 import {User} from "../../models/user";
 import {UserService} from "../../services/user.service";
+import {RedirectType} from "../../../../enums/redirect-type";
+import {HelperService} from "../../../../services/helper.service";
 
 @Component({
     selector: 'app-user-form',
@@ -18,9 +20,6 @@ import {UserService} from "../../services/user.service";
         CommonModule,
         ReactiveFormsModule
     ],
-    providers: [
-        MessageService
-    ],
     standalone: true,
     templateUrl: './user-form.component.html',
     styleUrl: './user-form.component.scss'
@@ -28,6 +27,9 @@ import {UserService} from "../../services/user.service";
 export class UserFormComponent {
     @Input() type!: FormType;
     @Input() user!: User;
+    @Input() redirectType!: RedirectType;
+    @Input() dialogId!: string;
+    @Input() returnUrl!: string;
 
     form!: FormGroup;
 
@@ -37,6 +39,7 @@ export class UserFormComponent {
         public validationService: ValidationService,
         private formBuilder: FormBuilder,
         private router: Router,
+        private helperService: HelperService,
         private userService: UserService,
         private messageService: MessageService) {
     }
@@ -61,9 +64,12 @@ export class UserFormComponent {
 
             this.loadingData = false;
 
-            this.type == FormType.Create ?
-                this.createUser() : this.updateUser();
+            return;
+
         }
+
+        this.type == FormType.Create ?
+            this.createUser() : this.updateUser();
     }
 
     private initForm = () => this.type == FormType.Create ?
@@ -91,6 +97,9 @@ export class UserFormComponent {
                 summary: 'Success',
                 detail: 'User is Created Successfully.'
             });
+            this.helperService
+                .redirectUserAfterSubmit(this.redirectType, this.returnUrl, this.dialogId);
+
             this.loadingData = false;
         }, error => {
             this.messageService.add({
