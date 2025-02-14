@@ -1,15 +1,19 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { Button, ButtonDirective } from 'primeng/button';
-import { IconField } from 'primeng/iconfield';
-import { InputIcon } from 'primeng/inputicon';
-import { InputText } from 'primeng/inputtext';
-import { Table, TableModule } from 'primeng/table';
-import { Administrator } from './models/administrator';
-import { AdministratorService } from './services/administrator.service';
-import { RouterLink } from '@angular/router';
-import { DialogFormComponent } from '../../components/dialog-form/dialog-form.component';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { DialogService } from 'primeng/dynamicdialog';
+import {Component, ElementRef, Input, ViewChild} from '@angular/core';
+import {Button, ButtonDirective} from 'primeng/button';
+import {IconField} from 'primeng/iconfield';
+import {InputIcon} from 'primeng/inputicon';
+import {InputText} from 'primeng/inputtext';
+import {Table, TableModule} from 'primeng/table';
+import {Administrator} from './models/administrator';
+import {AdministratorService} from './services/administrator.service';
+import {RouterLink} from '@angular/router';
+import {DialogFormComponent} from '../../components/dialog-form/dialog-form.component';
+import {ConfirmationService, MessageService} from 'primeng/api';
+import {DialogService} from 'primeng/dynamicdialog';
+import {EntityType} from "../../enums/entity-type";
+import {FormType} from "../../enums/form-type";
+import {Recipe} from "../recipes/models/recipe";
+import {DialogInfoComponent} from "../../components/dialog-info/dialog-info.component";
 
 @Component({
     selector: 'app-administrators',
@@ -27,7 +31,8 @@ export class AdministratorsComponent {
     constructor(private administratorService: AdministratorService,
                 private dialogService: DialogService,
                 private messageService: MessageService,
-                private confirmationService: ConfirmationService) {}
+                private confirmationService: ConfirmationService) {
+    }
 
     ngOnInit(): void {
         this.administratorService.getAllAdministrators().subscribe((response: Administrator[]) => {
@@ -47,23 +52,19 @@ export class AdministratorsComponent {
     openCreateDialog() {
         this.dialogService.open(DialogFormComponent, {
             header: 'Add New Administrator',
-            width: '50vw',
-            modal: true,
-            breakpoints: {
-                '960px': '75vw',
-                '640px': '90vw'
+            data: {
+                contentType: EntityType.Administrator,
+                formType: FormType.Create
             }
         });
     }
 
     openInfoDialog(administrator: Administrator) {
-        this.dialogService.open(DialogFormComponent, {
+        this.dialogService.open(DialogInfoComponent, {
             header: 'Details for ' + administrator.lastName,
-            width: '50vw',
-            modal: true,
-            breakpoints: {
-                '960px': '75vw',
-                '640px': '90vw'
+            data: {
+                contentType: EntityType.Administrator,
+                data: administrator
             }
         });
     }
@@ -71,11 +72,10 @@ export class AdministratorsComponent {
     openUpdateDialog(administrator: Administrator) {
         this.dialogService.open(DialogFormComponent, {
             header: 'Update data for ' + administrator.lastName,
-            width: '50vw',
-            modal: true,
-            breakpoints: {
-                '960px': '75vw',
-                '640px': '90vw'
+            data: {
+                contentType: EntityType.Administrator,
+                formType: FormType.Update,
+                data: administrator
             }
         });
     }
@@ -96,7 +96,20 @@ export class AdministratorsComponent {
                 label: 'Yes',
             },
             accept: () => {
-                this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Recipe has been deleted.' });
+                this.administratorService.deleteAdministrator(administrator.id)
+                    .subscribe((response) => {
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Success',
+                            detail: 'Administrator has been deleted.'
+                        });
+                    }, error => {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: 'Error deleting administrator.'
+                        });
+                    });
             }
         });
     }

@@ -6,9 +6,13 @@ import {InputText} from "primeng/inputtext";
 import {Table, TableModule} from "primeng/table";
 import {Recipe} from "./models/recipe";
 import {RecipeService} from "./services/recipe.service";
-import { DialogFormComponent } from '../../components/dialog-form/dialog-form.component';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { DialogService } from 'primeng/dynamicdialog';
+import {DialogFormComponent} from '../../components/dialog-form/dialog-form.component';
+import {ConfirmationService, MessageService} from 'primeng/api';
+import {DialogService} from 'primeng/dynamicdialog';
+import {EntityType} from "../../enums/entity-type";
+import {FormType} from "../../enums/form-type";
+import {Category} from "../categories/models/category";
+import {DialogInfoComponent} from "../../components/dialog-info/dialog-info.component";
 
 @Component({
     selector: 'app-recipes',
@@ -56,23 +60,19 @@ export class RecipesComponent {
     openCreateDialog() {
         this.dialogService.open(DialogFormComponent, {
             header: 'Add New Recipe',
-            width: '50vw',
-            modal: true,
-            breakpoints: {
-                '960px': '75vw',
-                '640px': '90vw'
+            data: {
+                contentType: EntityType.Recipe,
+                formType: FormType.Create
             }
         });
     }
 
     openInfoDialog(recipe: Recipe) {
-        this.dialogService.open(DialogFormComponent, {
+        this.dialogService.open(DialogInfoComponent, {
             header: 'Details for ' + recipe.title,
-            width: '50vw',
-            modal: true,
-            breakpoints: {
-                '960px': '75vw',
-                '640px': '90vw'
+            data: {
+                contentType: EntityType.Recipe,
+                data: recipe
             }
         });
     }
@@ -80,11 +80,10 @@ export class RecipesComponent {
     openUpdateDialog(recipe: Recipe) {
         this.dialogService.open(DialogFormComponent, {
             header: 'Update data for ' + recipe.title,
-            width: '50vw',
-            modal: true,
-            breakpoints: {
-                '960px': '75vw',
-                '640px': '90vw'
+            data: {
+                contentType: EntityType.Recipe,
+                formType: FormType.Update,
+                data: recipe
             }
         });
     }
@@ -105,7 +104,20 @@ export class RecipesComponent {
                 label: 'Yes',
             },
             accept: () => {
-                this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Recipe has been deleted.' });
+                this.recipeService.deleteRecipe(recipe.id)
+                    .subscribe((response) => {
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Success',
+                            detail: 'Recipe has been deleted.'
+                        });
+                    }, error => {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: 'Error deleting recipe.'
+                        });
+                    });
             }
         });
     }

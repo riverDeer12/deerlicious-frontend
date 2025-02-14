@@ -80,8 +80,8 @@ export class RecipeFormComponent {
 
     private initUpdateForm() {
         this.form = this.formBuilder.group({
-            firstName: [this.recipe.title, [Validators.required, Validators.maxLength(50)]],
-            lastName: [this.recipe.content, [Validators.required, Validators.maxLength(50)]],
+            title: [this.recipe.title, [Validators.required, Validators.maxLength(50)]],
+            content: [this.recipe.content, [Validators.required, Validators.maxLength(50)]],
         })
     }
 

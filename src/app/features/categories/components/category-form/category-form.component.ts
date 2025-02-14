@@ -79,8 +79,8 @@ export class CategoryFormComponent {
 
     private initUpdateForm() {
         this.form = this.formBuilder.group({
-            firstName: [this.category.name, [Validators.required, Validators.maxLength(50)]],
-            lastName: [this.category.description, [Validators.required, Validators.maxLength(50)]],
+            name: [this.category.name, [Validators.required, Validators.maxLength(50)]],
+            description: [this.category.description, [Validators.required, Validators.maxLength(50)]],
         })
     }
 

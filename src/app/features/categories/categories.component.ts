@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {ButtonModule} from "primeng/button";
 import {IconFieldModule} from "primeng/iconfield";
 import {InputIconModule} from "primeng/inputicon";
@@ -17,7 +17,10 @@ import {CategoryService} from "./services/category.service";
 import {DatePipe} from "@angular/common";
 import {DialogService} from "primeng/dynamicdialog";
 import {DialogFormComponent} from "../../components/dialog-form/dialog-form.component";
-import { ConfirmationService, MessageService } from 'primeng/api';
+import {ConfirmationService, MessageService} from 'primeng/api';
+import {EntityType} from "../../enums/entity-type";
+import {FormType} from "../../enums/form-type";
+import {DialogInfoComponent} from "../../components/dialog-info/dialog-info.component";
 
 @Component({
     selector: 'app-categories',
@@ -52,7 +55,8 @@ export class CategoriesComponent implements OnInit {
         private messageService: MessageService,
         private confirmationService: ConfirmationService,
         private dialogService: DialogService
-    ) {}
+    ) {
+    }
 
     ngOnInit(): void {
         this.categoryService.getAllCategories().subscribe((response: Category[]) => {
@@ -61,37 +65,32 @@ export class CategoriesComponent implements OnInit {
     }
 
     openCreateDialog() {
-       this.dialogService.open(DialogFormComponent, {
+        this.dialogService.open(DialogFormComponent, {
             header: 'Add New Category',
-            width: '50vw',
-            modal: true,
-            breakpoints: {
-                '960px': '75vw',
-                '640px': '90vw'
+            data: {
+                contentType: EntityType.Category,
+                formType: FormType.Create
             }
         });
     }
 
     openInfoDialog(category: Category) {
-        this.dialogService.open(DialogFormComponent, {
+        this.dialogService.open(DialogInfoComponent, {
             header: 'Details for ' + category.name,
-            width: '50vw',
-            modal: true,
-            breakpoints: {
-                '960px': '75vw',
-                '640px': '90vw'
+            data: {
+                contentType: EntityType.Category,
+                data: category
             }
         });
     }
 
     openUpdateDialog(category: Category) {
-       this.dialogService.open(DialogFormComponent, {
+        this.dialogService.open(DialogFormComponent, {
             header: 'Update data for ' + category.name,
-            width: '50vw',
-            modal: true,
-            breakpoints: {
-                '960px': '75vw',
-                '640px': '90vw'
+            data: {
+                contentType: EntityType.Category,
+                formType: FormType.Update,
+                data: category
             }
         });
     }
@@ -112,7 +111,20 @@ export class CategoriesComponent implements OnInit {
                 label: 'Yes',
             },
             accept: () => {
-                this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Category has been deleted.' });
+                this.categoryService.deleteCategory(category.id)
+                    .subscribe((response) => {
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Success',
+                            detail: 'Category has been deleted.'
+                        });
+                    }, error => {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: 'Error deleting category.'
+                        });
+                    });
             }
         });
     }
