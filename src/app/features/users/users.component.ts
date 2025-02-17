@@ -6,7 +6,6 @@ import {InputText} from "primeng/inputtext";
 import {Table, TableModule} from "primeng/table";
 import {User} from "./models/user";
 import {UserService} from "./services/user.service";
-import {RouterLink} from "@angular/router";
 import {DatePipe} from "@angular/common";
 import {DialogFormComponent} from "../../components/dialog-form/dialog-form.component";
 import {EntityType} from "../../enums/entity-type";
@@ -24,7 +23,6 @@ import {ConfirmationService, MessageService} from "primeng/api";
         InputText,
         TableModule,
         Button,
-        RouterLink,
         DatePipe
     ],
     standalone: true,

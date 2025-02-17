@@ -11,6 +11,7 @@ import {Recipe} from "../../models/recipe";
 import {RecipeService} from "../../services/recipe.service";
 import {RedirectType} from "../../../../enums/redirect-type";
 import {HelperService} from "../../../../services/helper.service";
+import {Editor} from "primeng/editor";
 
 @Component({
     selector: 'app-recipe-form',
@@ -18,7 +19,8 @@ import {HelperService} from "../../../../services/helper.service";
         CommonModule,
         ButtonModule,
         InputTextModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        Editor
     ],
     standalone: true,
     templateUrl: './recipe-form.component.html',
