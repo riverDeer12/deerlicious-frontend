@@ -59,6 +59,7 @@ export class RecipeFormComponent {
                 .add({
                     severity: 'warn',
                     summary: 'Incomplete or incorrect data',
+                    sticky: true,
                     detail: 'Check the entered data and try again.'
                 });
 
