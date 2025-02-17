@@ -10,17 +10,17 @@ import {Role} from "../../models/role";
 import {RoleService} from "../../services/role.service";
 import {Button} from "primeng/button";
 import {InputText} from "primeng/inputtext";
-import {NgIf} from "@angular/common";
 import {MultiSelect} from "primeng/multiselect";
 import {Permission} from "../../models/permission";
+import {CommonModule} from "@angular/common";
 
 @Component({
     selector: 'app-role-form',
     imports: [
+        CommonModule,
         Button,
         FormsModule,
         InputText,
-        NgIf,
         ReactiveFormsModule,
         MultiSelect
     ],
