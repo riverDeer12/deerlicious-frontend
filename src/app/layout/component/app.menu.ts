@@ -39,7 +39,14 @@ export class AppMenu {
             },
             {
                 label: 'Users',
-                items: [{label: 'List of Users', icon: 'pi pi-fw pi-users', routerLink: ['/users']}]
+                items: [
+                    {
+                        label: 'List of Users', icon: 'pi pi-fw pi-users', routerLink: ['/users']
+                    },
+                    {
+                        label: 'List of Roles', icon: 'pi pi-fw pi-crown', routerLink: ['/users/roles']
+                    }
+                ]
             }
         ];
     }

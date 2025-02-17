@@ -15,6 +15,7 @@ import {
 import {UserFormComponent} from "../../features/users/components/user-form/user-form.component";
 import {RedirectType} from "../../enums/redirect-type";
 import {DialogHelperService} from "../../services/dialog-helper.service";
+import {RoleFormComponent} from "../../features/roles/roles/components/role-form/role-form.component";
 
 @Component({
     selector: 'app-dialog-form',
@@ -26,7 +27,8 @@ import {DialogHelperService} from "../../services/dialog-helper.service";
         CategoryFormComponent,
         RecipeFormComponent,
         AdministratorFormComponent,
-        UserFormComponent
+        UserFormComponent,
+        RoleFormComponent
     ],
     standalone: true,
     templateUrl: './dialog-form.component.html',

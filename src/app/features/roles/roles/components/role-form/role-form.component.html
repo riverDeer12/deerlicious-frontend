@@ -1,0 +1,26 @@
+<form [formGroup]="form" (submit)="submit()">
+    <div class="formgrid grid">
+        <div class="field col-12 xl:col-6 lg:col-6 md:col-6">
+            <label for="name">Name</label>
+            <input
+                class="w-full {{validationService.getInputClass(form, 'name', 'required')}}"
+                type="text" id="name" pInputText formControlName="name"/>
+            <small class="p-error"
+                   *ngIf="validationService.hasErrors(form, 'name', 'required')"
+                   id="name-input">This field is required.</small>
+        </div>
+        <div class="field col-12 xl:col-6 lg:col-6 md:col-6">
+            <label for="permissions">Permissions</label>
+            <p-multiselect [filter]="true" appendTo="body" styleClass="w-full" [options]="permissions"
+                           formControlName="permissions" optionLabel="name"
+                           placeholder="Select Permissions" id="permissions"/>
+            <small class="p-error"
+                   *ngIf="validationService.hasErrors(form, 'permissions', 'required')"
+                   id="permissions-input">This field is required.</small>
+        </div>
+    </div>
+
+    <div class="my-3">
+        <p-button type="submit" iconPos="right" icon="pi pi-save" label="Save"/>
+    </div>
+</form>
