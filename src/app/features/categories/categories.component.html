@@ -17,33 +17,24 @@
 >
     <ng-template #header>
         <tr>
-            <th style="min-width: 12rem">
+            <th pSortableColumn="name" style="min-width: 12rem">
                 <div class="flex justify-between items-center">
                     Name
-                    <p-columnFilter type="text" field="name" display="menu"
-                                    placeholder="Search by name"></p-columnFilter>
+                    <p-sortIcon field="name" />
+                    <p-columnFilter type="text" field="name" display="menu" class="ml-auto" />
                 </div>
             </th>
-            <th style="min-width: 12rem">
-                <div class="flex justify-between items-center">
-                    Created At
-                    <p-columnFilter type="date" field="createdAt" display="menu"
-                                    placeholder="Search by date"></p-columnFilter>
-                </div>
+            <th pSortableColumn="createdAt" style="min-width: 12rem">
+                Created At
+                <p-sortIcon field="createdAt"/>
             </th>
-            <th style="min-width: 12rem">
-                <div class="flex justify-between items-center">
-                    Last Changes
-                    <p-columnFilter type="date" field="updatedAt" display="menu"
-                                    placeholder="Search by date"></p-columnFilter>
-                </div>
+            <th pSortableColumn="updatedAt" style="min-width: 12rem">
+                Last Changes
+                <p-sortIcon field="updatedAt"/>
             </th>
-            <th style="min-width: 12rem">
-                <div class="flex justify-between items-center">
-                    Status
-                    <p-columnFilter type="bool" field="isDeleted" display="menu"
-                                    placeholder="Search by status"></p-columnFilter>
-                </div>
+            <th pSortableColumn="status" style="min-width: 12rem">
+                Status
+                <p-sortIcon field="status"/>
             </th>
             <th style="width:11rem"></th>
         </tr>

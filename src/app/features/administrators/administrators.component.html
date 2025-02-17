@@ -22,46 +22,31 @@
                 <p-inputicon>
                     <i class="pi pi-search"></i>
                 </p-inputicon>
-                <input pInputText type="text" (input)="onGlobalFilter(administratorsTable, $event)" placeholder="Search keyword"/>
+                <input pInputText type="text" (input)="onGlobalFilter(administratorsTable, $event)"
+                       placeholder="Search keyword"/>
             </p-iconfield>
         </div>
     </ng-template>
     <ng-template #header>
         <tr>
-            <th style="min-width: 12rem">
+            <th pSortableColumn="fullName" style="min-width: 12rem">
                 <div class="flex justify-between items-center">
-                    First Name
-                    <p-columnFilter type="text" field="firstName" display="menu"
-                                    placeholder="Search by first name"></p-columnFilter>
+                    Name
+                    <p-sortIcon field="fullName"/>
+                    <p-columnFilter type="text" field="fullName" display="menu" class="ml-auto"/>
                 </div>
             </th>
-            <th style="min-width: 12rem">
-                <div class="flex justify-between items-center">
-                    Last Name
-                    <p-columnFilter type="text" field="lastName" display="menu"
-                                    placeholder="Search by last name"></p-columnFilter>
-                </div>
+            <th pSortableColumn="createdAt" style="min-width: 12rem">
+                Created At
+                <p-sortIcon field="createdAt"/>
             </th>
-            <th style="min-width: 12rem">
-                <div class="flex justify-between items-center">
-                    Created At
-                    <p-columnFilter type="date" field="createdAt" display="menu"
-                                    placeholder="Search by date"></p-columnFilter>
-                </div>
+            <th pSortableColumn="updatedAt" style="min-width: 12rem">
+                Last Changes
+                <p-sortIcon field="updatedAt"/>
             </th>
-            <th style="min-width: 12rem">
-                <div class="flex justify-between items-center">
-                    Last Changes
-                    <p-columnFilter type="date" field="updatedAt" display="menu"
-                                    placeholder="Search by date"></p-columnFilter>
-                </div>
-            </th>
-            <th style="min-width: 12rem">
-                <div class="flex justify-between items-center">
-                    Status
-                    <p-columnFilter type="bool" field="isDeleted" display="menu"
-                                    placeholder="Search by status"></p-columnFilter>
-                </div>
+            <th pSortableColumn="status" style="min-width: 12rem">
+                Status
+                <p-sortIcon field="status"/>
             </th>
             <th style="width: 11rem"></th>
         </tr>
@@ -69,10 +54,7 @@
     <ng-template #body let-administrator>
         <tr>
             <td>
-                {{ administrator.firstName }}
-            </td>
-            <td>
-                {{ administrator.lastName }}
+                {{ administrator.fullName }}
             </td>
             <td>
                 {{ administrator.createdAt | date : 'dd.MM.yyyy. HH:mm:ss'}}
@@ -86,7 +68,8 @@
             <td>
                 <p-button (click)="openInfoDialog(administrator)" class="mr-2" icon="pi pi-info" severity="secondary"
                           [rounded]="true" [outlined]="true"/>
-                <p-button (click)="openUpdateDialog(administrator)" class="mr-2" icon="pi pi-pencil" severity="secondary"
+                <p-button (click)="openUpdateDialog(administrator)" class="mr-2" icon="pi pi-pencil"
+                          severity="secondary"
                           [rounded]="true" [outlined]="true"/>
                 <p-button (click)="confirmDelete(administrator)" icon="pi pi-trash" severity="danger" [rounded]="true"
                           [outlined]="true"/>

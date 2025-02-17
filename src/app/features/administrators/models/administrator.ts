@@ -6,6 +6,10 @@ export class Administrator {
     updatedAt!: Date;
     isDeleted!: boolean;
 
+    get fullName(): string {
+        return `${this.firstName} ${this.lastName}`;
+    }
+
     get status(): string {
         return this.isDeleted ? 'Inactive' : 'Active';
     }
