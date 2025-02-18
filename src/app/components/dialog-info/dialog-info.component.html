@@ -1,0 +1,7 @@
+<p *ngFor="let item of Object.keys(data)">
+    <span><strong>{{ item }}:</strong> {{ data[item] }}</span>
+</p>
+
+<div class="my-3">
+    <p-button (click)="openUpdateDialog()" type="button" iconPos="right" icon="pi pi-save" label="Edit"/>
+</div>

@@ -1,11 +1,19 @@
 import {Component} from '@angular/core';
 import {EntityType} from "../../enums/entity-type";
-import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
+import {DialogService, DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
 import {DialogInfoConfig} from "../../constants/dialog-info-config";
+import {CommonModule} from "@angular/common";
+import {Button} from "primeng/button";
+import {Role} from "../../features/roles/roles/models/role";
+import {DialogFormComponent} from "../dialog-form/dialog-form.component";
+import {FormType} from "../../enums/form-type";
 
 @Component({
     selector: 'app-dialog-info',
-    imports: [],
+    imports: [
+        CommonModule,
+        Button
+    ],
     standalone: true,
     templateUrl: './dialog-info.component.html',
     styleUrl: './dialog-info.component.scss'
@@ -14,11 +22,15 @@ export class DialogInfoComponent {
     contentType!: EntityType;
     data: any;
 
+
+    protected readonly Object = Object;
+
     public get entityType(): typeof EntityType {
         return EntityType;
     }
 
     constructor(private dialogRef: DynamicDialogRef,
+                private dialogService: DialogService,
                 private dialogConfig: DynamicDialogConfig) {
         this.initSettings();
         this.initContentType();
@@ -45,5 +57,19 @@ export class DialogInfoComponent {
     initContentType(): void {
         this.contentType = this.dialogConfig.data.contentType;
         this.data = this.dialogConfig.data.data;
+    }
+
+    openUpdateDialog() {
+
+        this.dialogRef.close();
+
+        this.dialogService.open(DialogFormComponent, {
+            header: 'Update data for ' + this.data["id"],
+            data: {
+                contentType: this.contentType,
+                formType: FormType.Update,
+                data: this.data
+            }
+        });
     }
 }

@@ -61,7 +61,7 @@ export class AdministratorsComponent {
 
     openInfoDialog(administrator: Administrator) {
         this.dialogService.open(DialogInfoComponent, {
-            header: 'Details for ' + administrator.lastName,
+            header: 'Details for ' + administrator.id,
             data: {
                 contentType: EntityType.Administrator,
                 data: administrator
@@ -71,7 +71,7 @@ export class AdministratorsComponent {
 
     openUpdateDialog(administrator: Administrator) {
         this.dialogService.open(DialogFormComponent, {
-            header: 'Update data for ' + administrator.lastName,
+            header: 'Update data for ' + administrator.id,
             data: {
                 contentType: EntityType.Administrator,
                 formType: FormType.Update,
@@ -83,7 +83,7 @@ export class AdministratorsComponent {
     confirmDelete(administrator: Administrator) {
         this.confirmationService.confirm({
             message: 'Are you sure that you want to deactivate this administrator?',
-            header: 'Confirm deletion of ' + administrator.lastName,
+            header: 'Confirm deletion of ' + administrator.id,
             closable: true,
             closeOnEscape: true,
             icon: 'pi pi-exclamation-triangle',

@@ -86,7 +86,7 @@ export class CategoriesComponent implements OnInit {
 
     openUpdateDialog(category: Category) {
         this.dialogService.open(DialogFormComponent, {
-            header: 'Update data for ' + category.name,
+            header: 'Update data for ' + category.id,
             data: {
                 contentType: EntityType.Category,
                 formType: FormType.Update,
@@ -98,7 +98,7 @@ export class CategoriesComponent implements OnInit {
     confirmDelete(category: Category) {
         this.confirmationService.confirm({
             message: 'Are you sure that you want to deactivate this category?',
-            header: 'Confirm deletion of ' + category.name,
+            header: 'Confirm deletion of ' + category.id,
             closable: true,
             closeOnEscape: true,
             icon: 'pi pi-exclamation-triangle',

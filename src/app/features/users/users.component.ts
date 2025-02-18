@@ -72,7 +72,7 @@ export class UsersComponent {
 
     openInfoDialog(user: User) {
         this.dialogService.open(DialogInfoComponent, {
-            header: 'Details for ' + user.username,
+            header: 'Details for ' + user.id,
             data: {
                 contentType: EntityType.User,
                 data: user
@@ -82,7 +82,7 @@ export class UsersComponent {
 
     openUpdateDialog(user: User) {
         this.dialogService.open(DialogFormComponent, {
-            header: 'Update data for ' + user.username,
+            header: 'Update data for ' + user.id,
             data: {
                 contentType: EntityType.User,
                 formType: FormType.Update,
@@ -94,7 +94,7 @@ export class UsersComponent {
     confirmDelete(user: User) {
         this.confirmationService.confirm({
             message: 'Are you sure that you want to deactivate this user?',
-            header: 'Confirm deletion of ' + user.username,
+            header: 'Confirm deletion of ' + user.id,
             closable: true,
             closeOnEscape: true,
             icon: 'pi pi-exclamation-triangle',
@@ -112,7 +112,7 @@ export class UsersComponent {
                         this.messageService.add({
                             severity: 'success',
                             summary: 'Success',
-                            detail: 'Category has been deactivated.'
+                            detail: 'User has been deactivated.'
                         });
                     }, () => {
                         this.messageService.add({

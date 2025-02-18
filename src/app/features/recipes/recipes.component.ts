@@ -70,7 +70,7 @@ export class RecipesComponent {
 
     openInfoDialog(recipe: Recipe) {
         this.dialogService.open(DialogInfoComponent, {
-            header: 'Details for ' + recipe.title,
+            header: 'Details for ' + recipe.id,
             data: {
                 contentType: EntityType.Recipe,
                 data: recipe
@@ -80,7 +80,7 @@ export class RecipesComponent {
 
     openUpdateDialog(recipe: Recipe) {
         this.dialogService.open(DialogFormComponent, {
-            header: 'Update data for ' + recipe.title,
+            header: 'Update data for ' + recipe.id,
             data: {
                 contentType: EntityType.Recipe,
                 formType: FormType.Update,
@@ -92,7 +92,7 @@ export class RecipesComponent {
     confirmDelete(recipe: Recipe) {
         this.confirmationService.confirm({
             message: 'Are you sure that you want to deactivate this recipe?',
-            header: 'Confirm deletion of ' + recipe.title,
+            header: 'Confirm deletion of ' + recipe.id,
             closable: true,
             closeOnEscape: true,
             icon: 'pi pi-exclamation-triangle',

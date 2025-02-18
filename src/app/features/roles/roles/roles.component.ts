@@ -72,7 +72,7 @@ export class RolesComponent {
 
     openInfoDialog(role: Role) {
         this.dialogService.open(DialogInfoComponent, {
-            header: 'Details for ' + role.name,
+            header: 'Details for ' + role.id,
             data: {
                 contentType: EntityType.Role,
                 data: role
@@ -82,7 +82,7 @@ export class RolesComponent {
 
     openUpdateDialog(role: Role) {
         this.dialogService.open(DialogFormComponent, {
-            header: 'Update data for ' + role.name,
+            header: 'Update data for ' + role.id,
             data: {
                 contentType: EntityType.Role,
                 formType: FormType.Update,
@@ -94,7 +94,7 @@ export class RolesComponent {
     confirmDelete(role: Role) {
         this.confirmationService.confirm({
             message: 'Are you sure that you want to deactivate this role?',
-            header: 'Confirm deletion of ' + role.name,
+            header: 'Confirm deletion of ' + role.id,
             closable: true,
             closeOnEscape: true,
             icon: 'pi pi-exclamation-triangle',
