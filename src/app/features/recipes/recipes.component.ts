@@ -70,7 +70,7 @@ export class RecipesComponent {
 
     openInfoDialog(recipe: Recipe) {
         this.dialogService.open(DialogInfoComponent, {
-            header: 'Details for ' + recipe.id,
+            header: 'Details for: ' + recipe.id,
             data: {
                 contentType: EntityType.Recipe,
                 data: recipe
@@ -80,7 +80,7 @@ export class RecipesComponent {
 
     openUpdateDialog(recipe: Recipe) {
         this.dialogService.open(DialogFormComponent, {
-            header: 'Update data for ' + recipe.id,
+            header: 'Update data for: ' + recipe.id,
             data: {
                 contentType: EntityType.Recipe,
                 formType: FormType.Update,

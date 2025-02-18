@@ -76,7 +76,7 @@ export class CategoriesComponent implements OnInit {
 
     openInfoDialog(category: Category) {
         this.dialogService.open(DialogInfoComponent, {
-            header: 'Details for ' + category.name,
+            header: 'Details for: ' + category.name,
             data: {
                 contentType: EntityType.Category,
                 data: category
@@ -86,7 +86,7 @@ export class CategoriesComponent implements OnInit {
 
     openUpdateDialog(category: Category) {
         this.dialogService.open(DialogFormComponent, {
-            header: 'Update data for ' + category.id,
+            header: 'Update data for: ' + category.id,
             data: {
                 contentType: EntityType.Category,
                 formType: FormType.Update,

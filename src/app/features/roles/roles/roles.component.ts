@@ -72,7 +72,7 @@ export class RolesComponent {
 
     openInfoDialog(role: Role) {
         this.dialogService.open(DialogInfoComponent, {
-            header: 'Details for ' + role.id,
+            header: 'Details for: ' + role.id,
             data: {
                 contentType: EntityType.Role,
                 data: role
@@ -82,7 +82,7 @@ export class RolesComponent {
 
     openUpdateDialog(role: Role) {
         this.dialogService.open(DialogFormComponent, {
-            header: 'Update data for ' + role.id,
+            header: 'Update data for: ' + role.id,
             data: {
                 contentType: EntityType.Role,
                 formType: FormType.Update,

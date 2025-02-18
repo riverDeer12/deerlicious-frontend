@@ -72,7 +72,7 @@ export class UsersComponent {
 
     openInfoDialog(user: User) {
         this.dialogService.open(DialogInfoComponent, {
-            header: 'Details for ' + user.id,
+            header: 'Details for: ' + user.id,
             data: {
                 contentType: EntityType.User,
                 data: user
@@ -82,7 +82,7 @@ export class UsersComponent {
 
     openUpdateDialog(user: User) {
         this.dialogService.open(DialogFormComponent, {
-            header: 'Update data for ' + user.id,
+            header: 'Update data for: ' + user.id,
             data: {
                 contentType: EntityType.User,
                 formType: FormType.Update,

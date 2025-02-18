@@ -64,7 +64,7 @@ export class DialogInfoComponent {
         this.dialogRef.close();
 
         this.dialogService.open(DialogFormComponent, {
-            header: 'Update data for ' + this.data["id"],
+            header: 'Update data for: ' + this.data["id"],
             data: {
                 contentType: this.contentType,
                 formType: FormType.Update,
