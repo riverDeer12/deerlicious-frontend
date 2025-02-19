@@ -22,7 +22,15 @@ export class DialogInfoComponent {
     data: any;
 
 
-    protected readonly Object = Object;
+    // Check if a value is an object
+    isObject(value: any): boolean {
+        return typeof value === 'object' && value !== null;
+    }
+
+    // Get keys of an object
+    getObjectKeys(obj: any): string[] {
+        return Object.keys(obj);
+    }
 
     constructor(private dialogRef: DynamicDialogRef,
                 private dialogService: DialogService,
