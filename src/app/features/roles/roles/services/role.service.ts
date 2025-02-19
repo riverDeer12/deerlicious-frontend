@@ -19,7 +19,7 @@ export class RoleService {
     getRole = (roleId: string) =>
         this.http.get<Role>(environment.apiUrl + '/roles/' + roleId);
     createRole = (request: DefaultPostRequest) =>
-        this.http.get<Role>(environment.apiUrl + '/roles/');
+        this.http.post<Role>(environment.apiUrl + '/roles/', request);
     updateRole = (roleId: string, request: DefaultUpdateRequest) =>
         this.http.put<Role>(environment.apiUrl + '/roles/' + roleId, request);
     deleteRole = (roleId: string) =>

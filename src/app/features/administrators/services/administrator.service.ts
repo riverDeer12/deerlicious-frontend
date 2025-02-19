@@ -17,7 +17,7 @@ export class AdministratorService {
     getAdministrator = (administratorId: string) =>
         this.http.get<Administrator>(environment.apiUrl + '/administrators/' + administratorId);
     createAdministrator = (request: DefaultPostRequest) =>
-        this.http.get<Administrator>(environment.apiUrl + '/administrators/');
+        this.http.post<Administrator>(environment.apiUrl + '/administrators/', request);
     updateAdministrator = (administratorId: string, request: DefaultUpdateRequest) =>
         this.http.put<Administrator>(environment.apiUrl + '/administrators/' + administratorId, request);
     deleteAdministrator = (administratorId: string) =>

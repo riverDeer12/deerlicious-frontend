@@ -4,7 +4,6 @@ import {DialogService, DynamicDialogConfig, DynamicDialogRef} from "primeng/dyna
 import {DialogInfoConfig} from "../../constants/dialog-info-config";
 import {CommonModule} from "@angular/common";
 import {Button} from "primeng/button";
-import {Role} from "../../features/roles/roles/models/role";
 import {DialogFormComponent} from "../dialog-form/dialog-form.component";
 import {FormType} from "../../enums/form-type";
 
@@ -24,10 +23,6 @@ export class DialogInfoComponent {
 
 
     protected readonly Object = Object;
-
-    public get entityType(): typeof EntityType {
-        return EntityType;
-    }
 
     constructor(private dialogRef: DynamicDialogRef,
                 private dialogService: DialogService,

@@ -8,6 +8,6 @@ export const DialogInfoConfig: DynamicDialogConfig = {
     transitionOptions: '200ms',
     style: {
         'width': '100%',
-        'max-width': '50vh'
+        'max-width': '80vh'
     }
 }

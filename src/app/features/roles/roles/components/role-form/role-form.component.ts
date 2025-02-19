@@ -85,6 +85,7 @@ export class RoleFormComponent {
     private initCreateForm() {
         this.form = this.formBuilder.group({
             name: ['', [Validators.required, Validators.maxLength(50)]],
+            description: ['', [Validators.required]],
             permissions: ['', [Validators.required]]
         })
     }
@@ -92,6 +93,7 @@ export class RoleFormComponent {
     private initUpdateForm() {
         this.form = this.formBuilder.group({
             name: [this.role.name, [Validators.required, Validators.maxLength(50)]],
+            description: [this.role.description, [Validators.required]],
             permissions: [this.role.permissions, [Validators.required]],
         })
     }

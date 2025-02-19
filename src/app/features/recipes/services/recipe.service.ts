@@ -17,7 +17,7 @@ export class RecipeService {
     getRecipe = (recipeId: string) =>
         this.http.get<Recipe>(environment.apiUrl + '/recipes/' + recipeId);
     createRecipe = (request: DefaultPostRequest) =>
-        this.http.get<Recipe>(environment.apiUrl + '/recipes/');
+        this.http.post<Recipe>(environment.apiUrl + '/recipes/', request);
     updateRecipe = (recipeId: string, request: DefaultUpdateRequest) =>
         this.http.put<Recipe>(environment.apiUrl + '/recipes/' + recipeId, request);
     deleteRecipe = (recipeId: string) =>
