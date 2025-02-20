@@ -18,6 +18,15 @@
                    *ngIf="validationService.hasErrors(form, 'email', 'required')"
                    id="email-input">This field is required.</small>
         </div>
+        <div class="field col-12 xl:col-6 lg:col-6 md:col-6">
+            <label for="roles">Roles</label>
+            <p-multiselect [filter]="true" appendTo="body" styleClass="w-full" [options]="roles"
+                           formControlName="roles" optionLabel="name" optionValue="id"
+                           placeholder="Select Roles" id="roles"/>
+            <small class="p-error"
+                   *ngIf="validationService.hasErrors(form, 'users', 'required')"
+                   id="users-input">This field is required.</small>
+        </div>
     </div>
 
     <div class="my-3">

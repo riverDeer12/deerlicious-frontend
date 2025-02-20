@@ -11,6 +11,9 @@ import {User} from "../../models/user";
 import {UserService} from "../../services/user.service";
 import {RedirectType} from "../../../../enums/redirect-type";
 import {HelperService} from "../../../../services/helper.service";
+import {MultiSelect} from "primeng/multiselect";
+import {Role} from "../../../roles/roles/models/role";
+import {RoleService} from "../../../roles/roles/services/role.service";
 
 @Component({
     selector: 'app-user-form',
@@ -18,7 +21,8 @@ import {HelperService} from "../../../../services/helper.service";
         ButtonModule,
         InputTextModule,
         CommonModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MultiSelect
     ],
     standalone: true,
     templateUrl: './user-form.component.html',
@@ -33,6 +37,8 @@ export class UserFormComponent {
 
     form!: FormGroup;
 
+    roles!: Role[];
+
     loadingData = false;
 
     constructor(
@@ -40,12 +46,14 @@ export class UserFormComponent {
         private formBuilder: FormBuilder,
         private router: Router,
         private helperService: HelperService,
+        private roleService: RoleService,
         private userService: UserService,
         private messageService: MessageService) {
     }
 
     ngOnInit(): void {
         this.initForm();
+        this.getRoles()
     }
 
     submit() {
@@ -78,7 +86,8 @@ export class UserFormComponent {
     private initCreateForm() {
         this.form = this.formBuilder.group({
             username: ['', [Validators.required, Validators.maxLength(50)]],
-            email: ['', [Validators.required, Validators.maxLength(50)]]
+            email: ['', [Validators.required, Validators.maxLength(50)]],
+            roles: ['', Validators.required]
         })
     }
 
@@ -86,6 +95,7 @@ export class UserFormComponent {
         this.form = this.formBuilder.group({
             username: [this.user.username, [Validators.required, Validators.maxLength(50)]],
             email: [this.user.email, [Validators.required, Validators.maxLength(50)]],
+            roles: [this.user.roles.map(x => x.id), [Validators.required]]
         })
     }
 
@@ -127,6 +137,14 @@ export class UserFormComponent {
                 detail: error.message
             });
             this.loadingData = false;
+        })
+    }
+
+    private getRoles() {
+        this.roleService.getAllRoles().subscribe((response: Role[]) => {
+            this.roles = response.map((x: Role) =>
+                Object.assign(new Role(), x)
+            );
         })
     }
 }
