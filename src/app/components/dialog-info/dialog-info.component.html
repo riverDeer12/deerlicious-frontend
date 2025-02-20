@@ -1,18 +1,4 @@
-<div *ngFor="let key of getObjectKeys(data)">
-    <p *ngIf="!isObject(data[key])">
-        <strong>{{ key }}:</strong> {{ data[key] }}
-    </p>
-    <div *ngIf="isObject(data[key])">
-        <strong>{{ key }}:</strong>
-        <div style="margin-left: 20px;">
-            <ng-container *ngFor="let subKey of getObjectKeys(data[key])">
-                <p *ngIf="!isObject(data[key][subKey])">
-                    <strong>{{ subKey }}:</strong> {{ data[key][subKey] }}
-                </p>
-            </ng-container>
-        </div>
-    </div>
-</div>
+<app-key-value-display [data]="data"></app-key-value-display>
 
 <div class="my-3">
     <p-button (click)="openUpdateDialog()" type="button" iconPos="right" icon="pi pi-save" label="Edit"/>

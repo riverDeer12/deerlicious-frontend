@@ -6,12 +6,14 @@ import {CommonModule} from "@angular/common";
 import {Button} from "primeng/button";
 import {DialogFormComponent} from "../dialog-form/dialog-form.component";
 import {FormType} from "../../enums/form-type";
+import {KeyValueDisplayComponent} from "../key-value-display/key-value-display.component";
 
 @Component({
     selector: 'app-dialog-info',
     imports: [
         CommonModule,
-        Button
+        Button,
+        KeyValueDisplayComponent
     ],
     standalone: true,
     templateUrl: './dialog-info.component.html',
@@ -27,9 +29,8 @@ export class DialogInfoComponent {
         return typeof value === 'object' && value !== null;
     }
 
-    // Get keys of an object
-    getObjectKeys(obj: any): string[] {
-        return Object.keys(obj);
+    getEntries(obj: any): [string, any][] {
+        return Object.entries(obj);
     }
 
     constructor(private dialogRef: DynamicDialogRef,

@@ -13,6 +13,8 @@ import {InputText} from "primeng/inputtext";
 import {MultiSelect} from "primeng/multiselect";
 import {Permission} from "../../models/permission";
 import {CommonModule} from "@angular/common";
+import {User} from "../../../../users/models/user";
+import {UserService} from "../../../../users/services/user.service";
 
 @Component({
     selector: 'app-role-form',
@@ -41,22 +43,30 @@ export class RoleFormComponent {
 
     permissions!: Permission[];
 
+    users!: User[];
+
     constructor(
         public validationService: ValidationService,
         private formBuilder: FormBuilder,
         private router: Router,
         private helperService: HelperService,
         private roleService: RoleService,
+        private userService: UserService,
         private messageService: MessageService) {
     }
 
     ngOnInit(): void {
         this.initForm();
+        this.getUsers();
         this.getPermissions();
     }
 
     submit() {
         this.loadingData = true;
+
+        console.log(this.form.value);
+
+        return;
 
         if (this.form.invalid) {
 
@@ -86,7 +96,8 @@ export class RoleFormComponent {
         this.form = this.formBuilder.group({
             name: ['', [Validators.required, Validators.maxLength(50)]],
             description: ['', [Validators.required]],
-            permissions: ['', [Validators.required]]
+            permissions: ['', [Validators.required]],
+            users: ['', [Validators.required]]
         })
     }
 
@@ -94,7 +105,8 @@ export class RoleFormComponent {
         this.form = this.formBuilder.group({
             name: [this.role.name, [Validators.required, Validators.maxLength(50)]],
             description: [this.role.description, [Validators.required]],
-            permissions: [this.role.permissions, [Validators.required]],
+            permissions: [this.role.permissions.map(x => x.id), [Validators.required]],
+            users: [this.role.users.map(x => x.id), [Validators.required]]
         })
     }
 
@@ -136,6 +148,14 @@ export class RoleFormComponent {
                 detail: error.message
             });
             this.loadingData = false;
+        })
+    }
+
+    private getUsers() {
+        this.userService.getAllUsers().subscribe((response: User[]) => {
+            this.users = response.map((x: User) =>
+                Object.assign(new User(), x)
+            );
         })
     }
 
