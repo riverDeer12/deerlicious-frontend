@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
-import {Button, ButtonModule} from "primeng/button";
-import {InputText, InputTextModule} from "primeng/inputtext";
+import {ButtonModule} from "primeng/button";
+import {InputTextModule} from "primeng/inputtext";
 import {CommonModule, NgIf} from "@angular/common";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {FormType} from "../../../../enums/form-type";
@@ -12,6 +12,10 @@ import {RecipeService} from "../../services/recipe.service";
 import {RedirectType} from "../../../../enums/redirect-type";
 import {HelperService} from "../../../../services/helper.service";
 import {Editor} from "primeng/editor";
+import {MultiSelect} from "primeng/multiselect";
+import {Category} from "../../../categories/models/category";
+import {Role} from "../../../roles/roles/models/role";
+import {CategoryService} from "../../../categories/services/category.service";
 
 @Component({
     selector: 'app-recipe-form',
@@ -20,7 +24,8 @@ import {Editor} from "primeng/editor";
         ButtonModule,
         InputTextModule,
         ReactiveFormsModule,
-        Editor
+        Editor,
+        MultiSelect
     ],
     standalone: true,
     templateUrl: './recipe-form.component.html',
@@ -35,6 +40,8 @@ export class RecipeFormComponent {
 
     form!: FormGroup;
 
+    categories!: Category[];
+
     loadingData = false;
 
     constructor(
@@ -43,11 +50,13 @@ export class RecipeFormComponent {
         private router: Router,
         private helperService: HelperService,
         private recipeService: RecipeService,
+        private categoryService: CategoryService,
         private messageService: MessageService) {
     }
 
     ngOnInit(): void {
         this.initForm();
+        this.getCategories();
     }
 
     submit() {
@@ -80,7 +89,8 @@ export class RecipeFormComponent {
     private initCreateForm() {
         this.form = this.formBuilder.group({
             title: ['', [Validators.required, Validators.maxLength(50)]],
-            content: ['', [Validators.required, Validators.maxLength(50)]]
+            content: ['', [Validators.required, Validators.maxLength(50)]],
+            categories: ['', [Validators.required]]
         })
     }
 
@@ -88,6 +98,7 @@ export class RecipeFormComponent {
         this.form = this.formBuilder.group({
             title: [this.recipe.title, [Validators.required, Validators.maxLength(50)]],
             content: [this.recipe.content, [Validators.required, Validators.maxLength(50)]],
+            categories: [this.recipe.categories?.map(x => x.id), [Validators.required]]
         })
     }
 
@@ -132,6 +143,14 @@ export class RecipeFormComponent {
                 detail: error.message
             });
             this.loadingData = false;
+        })
+    }
+
+    private getCategories() {
+        this.categoryService.getAllCategories().subscribe((response: Category[]) => {
+            this.categories = response.map((x: Category) =>
+                Object.assign(new Category(), x)
+            );
         })
     }
 }

@@ -7,6 +7,8 @@
     #usersTable
     [value]="users"
     dataKey="id"
+    sortField="updatedAt"
+    [sortOrder]="-1"
     [rows]="10"
     [rowHover]="true"
     [showGridlines]="true"
@@ -28,32 +30,30 @@
     </ng-template>
     <ng-template #header>
         <tr>
-            <th style="min-width: 12rem">
+            <th pSortableColumn="username" style="min-width: 12rem">
                 <div class="flex justify-between items-center">
                     Username
+                    <p-sortIcon field="username"/>
                     <p-columnFilter type="text" field="username" display="menu"
                                     placeholder="Search by username"></p-columnFilter>
                 </div>
             </th>
-            <th style="min-width: 12rem">
+            <th pSortableColumn="createdAt" style="min-width: 12rem">
                 <div class="flex justify-between items-center">
                     Created At
-                    <p-columnFilter type="date" field="createdAt" display="menu"
-                                    placeholder="Search by date"></p-columnFilter>
+                    <p-sortIcon field="createdAt"/>
                 </div>
             </th>
-            <th style="min-width: 12rem">
+            <th pSortableColumn="updatedAt" style="min-width: 12rem">
                 <div class="flex justify-between items-center">
                     Last Changes
-                    <p-columnFilter type="date" field="updatedAt" display="menu"
-                                    placeholder="Search by date"></p-columnFilter>
+                    <p-sortIcon field="updatedAt"/>
                 </div>
             </th>
-            <th style="min-width: 12rem">
+            <th pSortableColumn="status" style="min-width: 12rem">
                 <div class="flex justify-between items-center">
                     Status
-                    <p-columnFilter type="text"  field="isDeleted" display="menu"
-                                    placeholder="Search by status"></p-columnFilter>
+                    <p-sortIcon field="status"/>
                 </div>
             </th>
             <th style="width: 11rem"></th>

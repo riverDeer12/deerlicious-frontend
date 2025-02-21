@@ -18,6 +18,12 @@
                    *ngIf="validationService.hasErrors(form, 'description', 'required')"
                    id="description-input">This field is required.</small>
         </div>
+        <div class="field col-12 xl:col-6 lg:col-6 md:col-6">
+            <label for="recipes">Recipes</label>
+            <p-multiselect [filter]="true" appendTo="body" styleClass="w-full" [options]="recipes"
+                           formControlName="recipes" optionLabel="title" optionValue="id"
+                           placeholder="Select Recipes" id="recipes"/>
+        </div>
     </div>
 
     <div class="my-3">
