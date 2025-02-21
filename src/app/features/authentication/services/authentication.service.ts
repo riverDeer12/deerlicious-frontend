@@ -26,7 +26,7 @@ export class AuthenticationService {
     isUserLogged(): boolean {
         const tokenStorageValue = localStorage.getItem('token');
 
-        if (tokenStorageValue === null) {
+        if (!tokenStorageValue) {
             return false;
         }
 
@@ -34,11 +34,7 @@ export class AuthenticationService {
 
         const now = Date.now().valueOf() / 1000
 
-        if (decodedToken.exp < now) {
-            return false;
-        } else {
-            return true;
-        }
+        return decodedToken.exp >= now;
     }
 
     /**

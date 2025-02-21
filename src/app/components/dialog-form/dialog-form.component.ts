@@ -67,6 +67,8 @@ export class DialogFormComponent {
         this.dialogConfig.closeOnEscape = DialogFormConfig.closeOnEscape;
         this.dialogConfig.transitionOptions = DialogFormConfig.transitionOptions;
         this.dialogConfig.style = DialogFormConfig.style;
+        this.dialogConfig.draggable = DialogFormConfig.draggable;
+        this.dialogConfig.resizable = DialogFormConfig.resizable;
     }
 
 

@@ -9,5 +9,7 @@ export const DialogFormConfig: DynamicDialogConfig = {
     style: {
         'width': '100%',
         'max-width': '90vh'
-    }
+    },
+    draggable: true,
+    resizable: true
 }

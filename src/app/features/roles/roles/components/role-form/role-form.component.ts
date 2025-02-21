@@ -64,10 +64,6 @@ export class RoleFormComponent {
     submit() {
         this.loadingData = true;
 
-        console.log(this.form.value);
-
-        return;
-
         if (this.form.invalid) {
 
             this.form.markAllAsTouched();

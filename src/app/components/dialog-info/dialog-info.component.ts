@@ -23,16 +23,6 @@ export class DialogInfoComponent {
     contentType!: EntityType;
     data: any;
 
-
-    // Check if a value is an object
-    isObject(value: any): boolean {
-        return typeof value === 'object' && value !== null;
-    }
-
-    getEntries(obj: any): [string, any][] {
-        return Object.entries(obj);
-    }
-
     constructor(private dialogRef: DynamicDialogRef,
                 private dialogService: DialogService,
                 private dialogConfig: DynamicDialogConfig) {
@@ -53,6 +43,8 @@ export class DialogInfoComponent {
         this.dialogConfig.closeOnEscape = DialogInfoConfig.closeOnEscape;
         this.dialogConfig.transitionOptions = DialogInfoConfig.transitionOptions;
         this.dialogConfig.style = DialogInfoConfig.style;
+        this.dialogConfig.draggable = DialogInfoConfig.draggable;
+        this.dialogConfig.resizable = DialogInfoConfig.resizable;
     }
 
     /**
