@@ -93,4 +93,9 @@ export class DialogFormComponent {
             }
         })
     }
+
+    cancel(): void {
+        this.dialogRef.close();
+    }
+
 }

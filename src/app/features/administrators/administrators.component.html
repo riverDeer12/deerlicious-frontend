@@ -15,6 +15,8 @@
     [paginator]="true"
     [globalFilterFields]="['firstName', 'lastName']"
     responsiveLayout="scroll"
+    showCurrentPageReport="true"
+    currentPageReportTemplate="There are {totalRecords} entries"
 >
     <ng-template>
         <div class="flex justify-between items-center flex-column sm:flex-row">
@@ -69,11 +71,11 @@
             </td>
             <td>
                 <p-button (click)="openInfoDialog(administrator)" class="mr-2" icon="pi pi-info" severity="secondary"
-                          [rounded]="true" [outlined]="true"/>
+                          [outlined]="true"/>
                 <p-button (click)="openUpdateDialog(administrator)" class="mr-2" icon="pi pi-pencil"
                           severity="secondary"
-                          [rounded]="true" [outlined]="true"/>
-                <p-button (click)="confirmDelete(administrator)" icon="pi pi-trash" severity="danger" [rounded]="true"
+                          [outlined]="true"/>
+                <p-button (click)="confirmDelete(administrator)" icon="pi pi-trash" severity="danger"
                           [outlined]="true"/>
             </td>
         </tr>

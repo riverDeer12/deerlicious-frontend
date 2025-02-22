@@ -14,14 +14,16 @@
     [paginator]="true"
     [globalFilterFields]="['name', 'description']"
     responsiveLayout="scroll"
+    showCurrentPageReport="true"
+    currentPageReportTemplate="There are {totalRecords} entries"
 >
     <ng-template #header>
         <tr>
             <th pSortableColumn="name" style="min-width: 12rem">
                 <div class="flex justify-between items-center">
                     Name
-                    <p-sortIcon field="name" />
-                    <p-columnFilter type="text" field="name" display="menu" class="ml-auto" />
+                    <p-sortIcon field="name"/>
+                    <p-columnFilter type="text" field="name" display="menu" class="ml-auto"/>
                 </div>
             </th>
             <th pSortableColumn="createdAt" style="min-width: 12rem">
@@ -55,10 +57,10 @@
             </td>
             <td>
                 <p-button (click)="openInfoDialog(category)" class="mr-2" icon="pi pi-info" severity="secondary"
-                          [rounded]="true" [outlined]="true"/>
+                           [outlined]="true"/>
                 <p-button (click)="openUpdateDialog(category)" class="mr-2" icon="pi pi-pencil" severity="secondary"
-                          [rounded]="true" [outlined]="true"/>
-                <p-button (click)="confirmDelete(category)" icon="pi pi-trash" severity="danger" [rounded]="true"
+                           [outlined]="true"/>
+                <p-button (click)="confirmDelete(category)" icon="pi pi-trash" severity="danger"
                           [outlined]="true"/>
             </td>
         </tr>

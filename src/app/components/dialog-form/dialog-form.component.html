@@ -1,3 +1,7 @@
+<div class="m-3 absolute top-0 right-0">
+    <p-button (click)="cancel()" icon="pi pi-times" [text]="true"></p-button>
+</div>
+
 <app-administrator-form
     *ngIf="contentType === entityType.Administrator"
     [type]="formType"
@@ -32,3 +36,6 @@
     [redirectType]="redirectType"
     [user]="data">
 </app-user-form>
+
+
+

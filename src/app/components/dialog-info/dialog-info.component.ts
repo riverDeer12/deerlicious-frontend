@@ -68,4 +68,8 @@ export class DialogInfoComponent {
             }
         });
     }
+
+    cancel(): void {
+        this.dialogRef.close();
+    }
 }

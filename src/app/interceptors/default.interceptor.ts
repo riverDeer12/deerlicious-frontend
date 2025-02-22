@@ -43,7 +43,17 @@ export const DefaultInterceptor: HttpInterceptorFn = (request, next) => {
         return next(request).pipe(
             tap({
                 next: () => loadingRef?.close(),
-                error: () => loadingRef?.close(),
+                error: (error) => {
+                    loadingRef?.close();
+                    if (error.status === 401) {
+                        localStorage.removeItem('token');
+                        router.navigateByUrl('authentication/login');
+                    } else if (error.status === 403) {
+                        router.navigateByUrl('forbidden');
+                    } else if (error.status === 500) {
+                        router.navigateByUrl('error');
+                    }
+                },
                 complete: () => loadingRef?.close(),
             })
         );
