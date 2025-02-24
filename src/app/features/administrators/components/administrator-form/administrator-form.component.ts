@@ -11,6 +11,10 @@ import {Administrator} from "../../models/administrator";
 import {AdministratorService} from "../../services/administrator.service";
 import {RedirectType} from "../../../../enums/redirect-type";
 import {HelperService} from "../../../../services/helper.service";
+import {Select} from "primeng/select";
+import {User} from "../../../users/models/user";
+import {Recipe} from "../../../recipes/models/recipe";
+import {UserService} from "../../../users/services/user.service";
 
 @Component({
     selector: 'app-administrator-form',
@@ -18,7 +22,8 @@ import {HelperService} from "../../../../services/helper.service";
         CommonModule,
         ButtonModule,
         InputTextModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        Select
     ],
     standalone: true,
     templateUrl: './administrator-form.component.html',
@@ -33,6 +38,8 @@ export class AdministratorFormComponent {
 
     form!: FormGroup;
 
+    users!: User[];
+
     loadingData = false;
 
     constructor(
@@ -40,12 +47,14 @@ export class AdministratorFormComponent {
         private formBuilder: FormBuilder,
         private router: Router,
         private helperService: HelperService,
+        private userService: UserService,
         private administratorService: AdministratorService,
         private messageService: MessageService) {
     }
 
     ngOnInit(): void {
         this.initForm();
+        this.getUsers();
     }
 
     submit() {
@@ -78,7 +87,8 @@ export class AdministratorFormComponent {
     private initCreateForm() {
         this.form = this.formBuilder.group({
             firstName: ['', [Validators.required, Validators.maxLength(50)]],
-            lastName: ['', [Validators.required, Validators.maxLength(50)]]
+            lastName: ['', [Validators.required, Validators.maxLength(50)]],
+            user: ['', [Validators.required]]
         })
     }
 
@@ -86,6 +96,7 @@ export class AdministratorFormComponent {
         this.form = this.formBuilder.group({
             firstName: [this.administrator.firstName, [Validators.required, Validators.maxLength(50)]],
             lastName: [this.administrator.lastName, [Validators.required, Validators.maxLength(50)]],
+            user: [this.administrator.user.id, [Validators.required]]
         })
     }
 
@@ -130,6 +141,14 @@ export class AdministratorFormComponent {
                 detail: error.message
             });
             this.loadingData = false;
+        })
+    }
+
+    private getUsers() {
+        this.userService.getAllUsers().subscribe((response: User[]) => {
+            this.users = response.map((x: User) =>
+                Object.assign(new User(), x)
+            );
         })
     }
 }

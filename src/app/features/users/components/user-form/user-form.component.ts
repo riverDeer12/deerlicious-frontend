@@ -14,6 +14,7 @@ import {HelperService} from "../../../../services/helper.service";
 import {MultiSelect} from "primeng/multiselect";
 import {Role} from "../../../roles/roles/models/role";
 import {RoleService} from "../../../roles/roles/services/role.service";
+import {Password} from "primeng/password";
 
 @Component({
     selector: 'app-user-form',
@@ -22,7 +23,8 @@ import {RoleService} from "../../../roles/roles/services/role.service";
         InputTextModule,
         CommonModule,
         ReactiveFormsModule,
-        MultiSelect
+        MultiSelect,
+        Password
     ],
     standalone: true,
     templateUrl: './user-form.component.html',
@@ -86,6 +88,7 @@ export class UserFormComponent {
     private initCreateForm() {
         this.form = this.formBuilder.group({
             username: ['', [Validators.required, Validators.maxLength(50)]],
+            password: ['', Validators.required],
             email: ['', [Validators.required, Validators.maxLength(50)]],
             roles: ['', Validators.required]
         })
@@ -94,6 +97,7 @@ export class UserFormComponent {
     private initUpdateForm() {
         this.form = this.formBuilder.group({
             username: [this.user.username, [Validators.required, Validators.maxLength(50)]],
+            password: [this.user.password, [Validators.required]],
             email: [this.user.email, [Validators.required, Validators.maxLength(50)]],
             roles: [this.user.roles.map(x => x.id), [Validators.required]]
         })

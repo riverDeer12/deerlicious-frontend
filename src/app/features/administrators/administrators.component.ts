@@ -6,7 +6,6 @@ import {InputText} from 'primeng/inputtext';
 import {Table, TableModule} from 'primeng/table';
 import {Administrator} from './models/administrator';
 import {AdministratorService} from './services/administrator.service';
-import {RouterLink} from '@angular/router';
 import {DialogFormComponent} from '../../components/dialog-form/dialog-form.component';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {DialogService} from 'primeng/dynamicdialog';
@@ -17,7 +16,7 @@ import {DatePipe} from "@angular/common";
 
 @Component({
     selector: 'app-administrators',
-    imports: [ButtonDirective, IconField, InputIcon, InputText, TableModule, Button, RouterLink, DatePipe],
+    imports: [ButtonDirective, IconField, InputIcon, InputText, TableModule, Button, DatePipe],
     standalone: true,
     providers: [DialogService],
     templateUrl: './administrators.component.html',

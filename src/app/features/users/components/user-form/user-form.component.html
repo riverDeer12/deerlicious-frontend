@@ -10,6 +10,14 @@
                    id="username-input">This field is required.</small>
         </div>
         <div class="field col-12 xl:col-6 lg:col-6 md:col-6">
+            <label for="password">Password</label>
+            <p-password id="password" formControlName="password" placeholder="Password" [toggleMask]="true"
+                        [fluid]="true" [feedback]="false"></p-password>
+            <small class="p-error"
+                   *ngIf="validationService.hasErrors(form, 'password', 'required')"
+                   id="password-input">This field is required.</small>
+        </div>
+        <div class="field col-12 xl:col-6 lg:col-6 md:col-6">
             <label for="email">Email</label>
             <input type="text" class="w-full {{validationService.getInputClass(form, 'email', 'required')}}"
                    id="email"
