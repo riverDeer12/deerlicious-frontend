@@ -89,6 +89,7 @@ export class UserFormComponent {
         this.form = this.formBuilder.group({
             username: ['', [Validators.required, Validators.maxLength(50)]],
             password: ['', Validators.required],
+            confirmPassword: ['', Validators.required],
             email: ['', [Validators.required, Validators.maxLength(50)]],
             roles: ['', Validators.required]
         })
@@ -98,6 +99,7 @@ export class UserFormComponent {
         this.form = this.formBuilder.group({
             username: [this.user.username, [Validators.required, Validators.maxLength(50)]],
             password: [this.user.password, [Validators.required]],
+            confirmPassword: [this.user.password, Validators.required],
             email: [this.user.email, [Validators.required, Validators.maxLength(50)]],
             roles: [this.user.roles.map(x => x.id), [Validators.required]]
         })

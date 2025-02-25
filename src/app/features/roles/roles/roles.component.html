@@ -26,7 +26,7 @@
                 <p-inputicon>
                     <i class="pi pi-search"></i>
                 </p-inputicon>
-                <input pInputText type="text" (input)="onGlobalFilter(rolesTable, $event)" placeholder="Search keyword"/>
+                <input pInputText type="text" (input)="onGlobalFilter(rolesTable, $event)"/>
             </p-iconfield>
         </div>
     </ng-template>
@@ -37,7 +37,7 @@
                     Name
                     <p-sortIcon field="name" />
                     <p-columnFilter type="text" field="name" display="menu"
-                                    placeholder="Search by name"></p-columnFilter>
+                                    ></p-columnFilter>
                 </div>
             </th>
             <th pSortableColumn="createdAt" style="min-width: 12rem">

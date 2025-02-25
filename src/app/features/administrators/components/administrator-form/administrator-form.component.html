@@ -22,7 +22,7 @@
             <label for="user">User</label>
             <p-select appendTo="body" id="user" [options]="users" formControlName="user" optionLabel="username"
                       optionValue="id" [filter]="true"
-                      filterBy="username" [showClear]="true" placeholder="Select a User"
+                      filterBy="username" [showClear]="true"
                       styleClass="w-full"></p-select>
             <small class="p-error"
                    *ngIf="validationService.hasErrors(form, 'user', 'required')"

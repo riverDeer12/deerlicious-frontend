@@ -22,7 +22,7 @@
             <label for="permissions">Permissions</label>
             <p-multiselect [filter]="true" appendTo="body" styleClass="w-full" [options]="permissions"
                            formControlName="permissions" optionLabel="name" optionValue="id"
-                           placeholder="Select Permissions" id="permissions"/>
+                            id="permissions"/>
             <small class="p-error"
                    *ngIf="validationService.hasErrors(form, 'permissions', 'required')"
                    id="permissions-input">This field is required.</small>
@@ -31,7 +31,7 @@
             <label for="users">Users</label>
             <p-multiselect [filter]="true" appendTo="body" styleClass="w-full" [options]="users"
                            formControlName="users" optionLabel="username" optionValue="id"
-                           placeholder="Select Users" id="users"/>
+                           id="users"/>
             <small class="p-error"
                    *ngIf="validationService.hasErrors(form, 'users', 'required')"
                    id="users-input">This field is required.</small>
