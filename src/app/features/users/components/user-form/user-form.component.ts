@@ -15,6 +15,7 @@ import {MultiSelect} from "primeng/multiselect";
 import {Role} from "../../../roles/roles/models/role";
 import {RoleService} from "../../../roles/roles/services/role.service";
 import {Password} from "primeng/password";
+import {EntityType} from "../../../../enums/entity-type";
 
 @Component({
     selector: 'app-user-form',
@@ -42,6 +43,10 @@ export class UserFormComponent {
     roles!: Role[];
 
     loadingData = false;
+
+    public get formType(): typeof FormType {
+        return FormType;
+    }
 
     constructor(
         public validationService: ValidationService,
@@ -89,7 +94,7 @@ export class UserFormComponent {
         this.form = this.formBuilder.group({
             username: ['', [Validators.required, Validators.maxLength(50)]],
             password: ['', Validators.required],
-            confirmPassword: ['', Validators.required],
+            confirmPassword: ['', [Validators.required, this.passwordMatchValidator]],
             email: ['', [Validators.required, Validators.maxLength(50)]],
             roles: ['', Validators.required]
         })
@@ -98,8 +103,6 @@ export class UserFormComponent {
     private initUpdateForm() {
         this.form = this.formBuilder.group({
             username: [this.user.username, [Validators.required, Validators.maxLength(50)]],
-            password: [this.user.password, [Validators.required]],
-            confirmPassword: [this.user.password, Validators.required],
             email: [this.user.email, [Validators.required, Validators.maxLength(50)]],
             roles: [this.user.roles.map(x => x.id), [Validators.required]]
         })
@@ -152,5 +155,11 @@ export class UserFormComponent {
                 Object.assign(new Role(), x)
             );
         })
+    }
+
+    private passwordMatchValidator(form: FormGroup) {
+        const password = form.get('password')?.value;
+        const confirmPassword = form.get('confirmPassword')?.value;
+        return password === confirmPassword ? null : { mismatch: true };
     }
 }
