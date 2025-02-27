@@ -13,8 +13,8 @@ import {RedirectType} from "../../../../enums/redirect-type";
 import {HelperService} from "../../../../services/helper.service";
 import {MultiSelect} from "primeng/multiselect";
 import {Recipe} from "../../../recipes/models/recipe";
-import {Permission} from "../../../roles/roles/models/permission";
 import {RecipeService} from "../../../recipes/services/recipe.service";
+import {Administrator} from "../../../administrators/models/administrator";
 
 @Component({
     selector: 'app-category-form',
@@ -100,54 +100,57 @@ export class CategoryFormComponent {
     }
 
     private createCategory() {
-        this.categoryService.createCategory(this.form.value).subscribe((response: Category) => {
-            this.category = Object.assign(response as Category);
+        this.categoryService.createCategory(this.form.value).subscribe({
+            next: (response: Category) => {
+                this.category = Object.assign(new Category(), response)
 
-            this.messageService.add({
-                severity: 'success',
-                summary: 'Success',
-                detail: 'Category is Created Successfully.'
-            });
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: 'Category is created successfully.'
+                });
 
-            this.helperService
-                .redirectUserAfterSubmit(this.redirectType, this.returnUrl, this.dialogId);
-
-            this.loadingData = false;
-
-        }, error => {
-            this.messageService.add({
-                severity: 'error',
-                summary: 'Error Creating Category',
-                detail: error.message
-            });
-            this.loadingData = false;
-        })
+                this.helperService.redirectUserAfterSubmit(this.redirectType, this.returnUrl, this.dialogId);
+            },
+            error: (error) => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error Creating Category',
+                    detail: error.message || 'An unexpected error occurred.'
+                });
+            },
+            complete: () => {
+                this.loadingData = false;
+            }
+        });
     }
 
     private updateCategory() {
-        this.categoryService.updateCategory(this.category.id, this.form.value).subscribe((response: Category) => {
-            this.category = Object.assign(response as Category);
+        this.categoryService.updateCategory(this.category.id, this.form.value).subscribe({
+            next: (response: Category) => {
+                this.category = Object.assign(new Category(), response)
 
-            this.messageService.add({
-                severity: 'success',
-                summary: 'Success',
-                detail: 'Category is Updated Successfully.'
-            });
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: 'Category is updated successfully.'
+                });
 
-            this.helperService
-                .redirectUserAfterSubmit(this.redirectType, this.returnUrl, this.dialogId)
-
-            this.loadingData = false;
-
-        }, error => {
-            this.messageService.add({
-                severity: 'error',
-                summary: 'Error Updating Category',
-                detail: error.message
-            });
-            this.loadingData = false;
-        })
+                this.helperService.redirectUserAfterSubmit(this.redirectType, this.returnUrl, this.dialogId);
+            },
+            error: (error) => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error Updating Category',
+                    detail: error.message || 'An unexpected error occurred.'
+                });
+            },
+            complete: () => {
+                this.loadingData = false;
+            }
+        });
     }
+
 
     private getRecipes() {
         this.recipeService.getAllRecipes().subscribe((response: Recipe[]) => {

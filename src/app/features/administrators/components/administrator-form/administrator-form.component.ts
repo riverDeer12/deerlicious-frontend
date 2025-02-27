@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {ButtonModule} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
-import {CommonModule, NgIf} from "@angular/common";
+import {CommonModule} from "@angular/common";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {FormType} from "../../../../enums/form-type";
 import {ValidationService} from "../../../../services/validation.service";
@@ -13,7 +13,6 @@ import {RedirectType} from "../../../../enums/redirect-type";
 import {HelperService} from "../../../../services/helper.service";
 import {Select} from "primeng/select";
 import {User} from "../../../users/models/user";
-import {Recipe} from "../../../recipes/models/recipe";
 import {UserService} from "../../../users/services/user.service";
 
 @Component({
@@ -101,47 +100,59 @@ export class AdministratorFormComponent {
     }
 
     private createAdministrator() {
-        this.administratorService.createAdministrator(this.form.value).subscribe((response: Administrator) => {
-            this.administrator = Object.assign(response as Administrator);
-            this.messageService.add({
-                severity: 'success',
-                summary: 'Success',
-                detail: 'Administrator is Created Successfully.'
-            });
-            this.helperService
-                .redirectUserAfterSubmit(this.redirectType, this.returnUrl, this.dialogId);
+        this.administratorService.createAdministrator(this.form.value).subscribe({
+            next: (response: Administrator) => {
+                this.administrator = Object.assign(new Administrator(), response)
 
-            this.loadingData = false;
-        }, error => {
-            this.messageService.add({
-                severity: 'error',
-                summary: 'Error Creating Administrator',
-                detail: error.message
-            });
-            this.loadingData = false;
-        })
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: 'Administrator is created successfully.'
+                });
+
+                this.helperService.redirectUserAfterSubmit(this.redirectType, this.returnUrl, this.dialogId);
+            },
+            error: (error) => {
+                console.error('Error:', error);
+
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error Creating Administrator',
+                    detail: error.message || 'An unexpected error occurred.'
+                });
+            },
+            complete: () => {
+                this.loadingData = false;
+            }
+        });
     }
 
     private updateAdministrator() {
-        this.administratorService.updateAdministrator(this.administrator.id, this.form.value).subscribe((response: Administrator) => {
-            this.administrator = Object.assign(response as Administrator);
-            this.messageService.add({
-                severity: 'success',
-                summary: 'Success',
-                detail: 'Administrator is Updated Successfully.'
-            });
-            this.helperService
-                .redirectUserAfterSubmit(this.redirectType, this.returnUrl, this.dialogId);
+        this.administratorService.updateAdministrator(this.administrator.id, this.form.value).subscribe({
+            next: (response: Administrator) => {
+                this.administrator = Object.assign(new Administrator(), response)
 
-            this.loadingData = false;
-        }, error => {
-            this.messageService.add({
-                severity: 'error',
-                summary: 'Error Updating Administrator',
-                detail: error.message
-            });
-            this.loadingData = false;
-        })
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: 'Administrator is updated successfully.'
+                });
+
+                this.helperService.redirectUserAfterSubmit(this.redirectType, this.returnUrl, this.dialogId);
+            },
+            error: (error) => {
+                console.error('Error:', error);
+
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error Updating Administrator',
+                    detail: error.message || 'An unexpected error occurred.'
+                });
+            },
+            complete: () => {
+                this.loadingData = false;
+            }
+        });
     }
 
     private getUsers() {

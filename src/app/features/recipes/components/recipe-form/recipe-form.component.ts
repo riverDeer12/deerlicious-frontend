@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {ButtonModule} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
-import {CommonModule, NgIf} from "@angular/common";
+import {CommonModule} from "@angular/common";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {FormType} from "../../../../enums/form-type";
 import {ValidationService} from "../../../../services/validation.service";
@@ -14,8 +14,8 @@ import {HelperService} from "../../../../services/helper.service";
 import {Editor} from "primeng/editor";
 import {MultiSelect} from "primeng/multiselect";
 import {Category} from "../../../categories/models/category";
-import {Role} from "../../../roles/roles/models/role";
 import {CategoryService} from "../../../categories/services/category.service";
+import {Administrator} from "../../../administrators/models/administrator";
 
 @Component({
     selector: 'app-recipe-form',
@@ -103,48 +103,58 @@ export class RecipeFormComponent {
     }
 
     private createRecipe() {
-        this.recipeService.createRecipe(this.form.value).subscribe((response: Recipe) => {
-            this.recipe = Object.assign(response as Recipe);
-            this.messageService.add({
-                severity: 'success',
-                summary: 'Success',
-                detail: 'Recipe is Created Successfully.'
-            });
-            this.helperService
-                .redirectUserAfterSubmit(this.redirectType, this.returnUrl, this.dialogId);
+        this.recipeService.createRecipe(this.form.value).subscribe({
+            next: (response: Recipe) => {
+                this.recipe = Object.assign(new Recipe(), response)
 
-            this.loadingData = false;
-        }, error => {
-            this.messageService.add({
-                severity: 'error',
-                summary: 'Error Creating Recipe',
-                detail: error.message
-            });
-            this.loadingData = false;
-        })
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: 'Recipe is created successfully.'
+                });
+
+                this.helperService.redirectUserAfterSubmit(this.redirectType, this.returnUrl, this.dialogId);
+            },
+            error: (error) => {
+
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error Creating Recipe',
+                    detail: error.message || 'An unexpected error occurred.'
+                });
+            },
+            complete: () => {
+                this.loadingData = false;
+            }
+        });
     }
 
     private updateRecipe() {
-        this.recipeService.updateRecipe(this.recipe.id, this.form.value).subscribe((response: Recipe) => {
-            this.recipe = Object.assign(response as Recipe);
-            this.messageService.add({
-                severity: 'success',
-                summary: 'Success',
-                detail: 'Recipe is Updated Successfully.'
-            });
-            this.helperService
-                .redirectUserAfterSubmit(this.redirectType, this.returnUrl, this.dialogId);
+        this.recipeService.updateRecipe(this.recipe.id, this.form.value).subscribe({
+            next: (response: Recipe) => {
+                this.recipe = Object.assign(new Recipe(), response)
 
-            this.loadingData = false;
-        }, error => {
-            this.messageService.add({
-                severity: 'error',
-                summary: 'Error Updating Recipe',
-                detail: error.message
-            });
-            this.loadingData = false;
-        })
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: 'Recipe is updated successfully.'
+                });
+
+                this.helperService.redirectUserAfterSubmit(this.redirectType, this.returnUrl, this.dialogId);
+            },
+            error: (error) => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error Updating Recipe',
+                    detail: error.message || 'An unexpected error occurred.'
+                });
+            },
+            complete: () => {
+                this.loadingData = false;
+            }
+        });
     }
+
 
     private getCategories() {
         this.categoryService.getAllCategories().subscribe((response: Category[]) => {

@@ -65,7 +65,7 @@ export class LoaderService {
 
     /**
      * Will attach the component
-     * to the Portal so it
+     * to the Portal, so it
      * can be shown.
      * @param overlayRef overlay reference
      * @param dialogRef dialog reference

@@ -107,44 +107,55 @@ export class RoleFormComponent {
     }
 
     private createRole() {
-        this.roleService.createRole(this.form.value).subscribe((response: Role) => {
-            this.role = Object.assign(response as Role);
-            this.messageService.add({
-                severity: 'success',
-                summary: 'Success',
-                detail: 'Role is Created Successfully.'
-            });
-            this.helperService
-                .redirectUserAfterSubmit(this.redirectType, this.returnUrl, this.dialogId);
+        this.roleService.createRole(this.form.value).subscribe({
+            next: (response: Role) => {
+                this.role = Object.assign(new Role(), response)
 
-            this.loadingData = false;
-        }, error => {
-            this.messageService.add({
-                severity: 'error',
-                summary: 'Error Creating Role',
-                detail: error.message
-            });
-            this.loadingData = false;
-        })
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: 'Role is created successfully.'
+                });
+
+                this.helperService.redirectUserAfterSubmit(this.redirectType, this.returnUrl, this.dialogId);
+            },
+            error: (error) => {
+                console.error('Error:', error);
+
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error Creating Role',
+                    detail: error.message || 'An unexpected error occurred.'
+                });
+            },
+            complete: () => {
+                this.loadingData = false;
+            }
+        });
     }
 
     private updateRole() {
-        this.roleService.updateRole(this.role.id, this.form.value).subscribe((response: Role) => {
-            this.role = Object.assign(response as Role);
-            this.messageService.add({
-                severity: 'success',
-                summary: 'Success',
-                detail: 'Role is Updated Successfully.'
-            });
-            this.loadingData = false;
-        }, error => {
-            this.messageService.add({
-                severity: 'error',
-                summary: 'Error Updating Role',
-                detail: error.message
-            });
-            this.loadingData = false;
-        })
+        this.roleService.updateRole(this.role.id, this.form.value).subscribe({
+            next: (response: Role) => {
+                this.role = Object.assign(new Role(), response)
+
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: 'Role is updated successfully.'
+                });
+            },
+            error: (error) => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error Updating Role',
+                    detail: error.message || 'An unexpected error occurred.'
+                });
+            },
+            complete: () => {
+                this.loadingData = false;
+            }
+        });
     }
 
     private getUsers() {

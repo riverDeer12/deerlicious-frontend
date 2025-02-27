@@ -15,7 +15,7 @@ import {MultiSelect} from "primeng/multiselect";
 import {Role} from "../../../roles/roles/models/role";
 import {RoleService} from "../../../roles/roles/services/role.service";
 import {Password} from "primeng/password";
-import {EntityType} from "../../../../enums/entity-type";
+import {Administrator} from "../../../administrators/models/administrator";
 
 @Component({
     selector: 'app-user-form',
@@ -109,45 +109,56 @@ export class UserFormComponent {
     }
 
     private createUser() {
-        this.userService.createUser(this.form.value).subscribe((response: User) => {
-            this.user = Object.assign(response as User);
-            this.messageService.add({
-                severity: 'success',
-                summary: 'Success',
-                detail: 'User is Created Successfully.'
-            });
-            this.helperService
-                .redirectUserAfterSubmit(this.redirectType, this.returnUrl, this.dialogId);
+        this.userService.createUser(this.form.value).subscribe({
+            next: (response: User) => {
+                this.user = Object.assign(new User(), response)
 
-            this.loadingData = false;
-        }, error => {
-            this.messageService.add({
-                severity: 'error',
-                summary: 'Error Creating User',
-                detail: error.message
-            });
-            this.loadingData = false;
-        })
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: 'User is created successfully.'
+                });
+
+                this.helperService.redirectUserAfterSubmit(this.redirectType, this.returnUrl, this.dialogId);
+            },
+            error: (error) => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error Creating User',
+                    detail: error.message || 'An unexpected error occurred.'
+                });
+            },
+            complete: () => {
+                this.loadingData = false;
+            }
+        });
     }
 
     private updateUser() {
-        this.userService.updateUser(this.user.id, this.form.value).subscribe((response: User) => {
-            this.user = Object.assign(response as User);
-            this.messageService.add({
-                severity: 'success',
-                summary: 'Success',
-                detail: 'User is Updated Successfully.'
-            });
-            this.loadingData = false;
-        }, error => {
-            this.messageService.add({
-                severity: 'error',
-                summary: 'Error Updating User',
-                detail: error.message
-            });
-            this.loadingData = false;
-        })
+        this.userService.updateUser(this.user.id, this.form.value).subscribe({
+            next: (response: User) => {
+                this.user = Object.assign(new User(), response)
+
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: 'User is updated successfully.'
+                });
+            },
+            error: (error) => {
+
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error Updating User',
+                    detail: error.message || 'An unexpected error occurred.'
+                });
+            },
+            complete: () => {
+                this.loadingData = false;
+            }
+        });
     }
+
 
     private getRoles() {
         this.roleService.getAllRoles().subscribe((response: Role[]) => {
