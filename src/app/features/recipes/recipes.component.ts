@@ -10,7 +10,7 @@ import {DialogFormComponent} from '../../components/dialog-form/dialog-form.comp
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {DialogService} from 'primeng/dynamicdialog';
 import {EntityType} from "../../enums/entity-type";
-import {FormType} from "../../enums/form-type";
+import {ActionType} from "../../enums/action-type";
 import {DialogInfoComponent} from "../../components/dialog-info/dialog-info.component";
 import {DatePipe} from "@angular/common";
 
@@ -63,7 +63,7 @@ export class RecipesComponent {
             header: 'Add New Recipe',
             data: {
                 contentType: EntityType.Recipe,
-                formType: FormType.Create
+                formType: ActionType.Create
             }
         });
     }
@@ -83,7 +83,7 @@ export class RecipesComponent {
             header: 'Update data for: ' + recipe.id,
             data: {
                 contentType: EntityType.Recipe,
-                formType: FormType.Update,
+                formType: ActionType.Update,
                 data: recipe
             }
         });

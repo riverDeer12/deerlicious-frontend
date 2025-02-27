@@ -9,7 +9,7 @@ import {UserService} from "./services/user.service";
 import {DatePipe} from "@angular/common";
 import {DialogFormComponent} from "../../components/dialog-form/dialog-form.component";
 import {EntityType} from "../../enums/entity-type";
-import {FormType} from "../../enums/form-type";
+import {ActionType} from "../../enums/action-type";
 import {DialogInfoComponent} from "../../components/dialog-info/dialog-info.component";
 import {DialogService} from "primeng/dynamicdialog";
 import {ConfirmationService, MessageService} from "primeng/api";
@@ -65,7 +65,7 @@ export class UsersComponent {
             header: 'Add New User',
             data: {
                 contentType: EntityType.User,
-                formType: FormType.Create
+                formType: ActionType.Create
             }
         });
     }
@@ -85,7 +85,7 @@ export class UsersComponent {
             header: 'Update data for: ' + user.id,
             data: {
                 contentType: EntityType.User,
-                formType: FormType.Update,
+                formType: ActionType.Update,
                 data: user
             }
         });

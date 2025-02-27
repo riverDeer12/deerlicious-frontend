@@ -3,7 +3,7 @@ import {ButtonModule} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
 import {CommonModule} from "@angular/common";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {FormType} from "../../../../enums/form-type";
+import {ActionType} from "../../../../enums/action-type";
 import {ValidationService} from "../../../../services/validation.service";
 import {Router} from "@angular/router";
 import {MessageService} from "primeng/api";
@@ -29,7 +29,7 @@ import {UserService} from "../../../users/services/user.service";
     styleUrl: './administrator-form.component.scss'
 })
 export class AdministratorFormComponent {
-    @Input() type!: FormType;
+    @Input() type!: ActionType;
     @Input() administrator!: Administrator;
     @Input() redirectType!: RedirectType;
     @Input() dialogId!: string;
@@ -76,25 +76,25 @@ export class AdministratorFormComponent {
 
         }
 
-        this.type == FormType.Create ?
+        this.type == ActionType.Create ?
             this.createAdministrator() : this.updateAdministrator();
     }
 
-    private initForm = () => this.type == FormType.Create ?
+    private initForm = () => this.type == ActionType.Create ?
         this.initCreateForm() : this.initUpdateForm();
 
     private initCreateForm() {
         this.form = this.formBuilder.group({
-            firstName: ['', [Validators.required, Validators.maxLength(50)]],
-            lastName: ['', [Validators.required, Validators.maxLength(50)]],
+            firstName: ['', [Validators.required]],
+            lastName: ['', [Validators.required]],
             user: ['', [Validators.required]]
         })
     }
 
     private initUpdateForm() {
         this.form = this.formBuilder.group({
-            firstName: [this.administrator.firstName, [Validators.required, Validators.maxLength(50)]],
-            lastName: [this.administrator.lastName, [Validators.required, Validators.maxLength(50)]],
+            firstName: [this.administrator.firstName, [Validators.required]],
+            lastName: [this.administrator.lastName, [Validators.required]],
             user: [this.administrator.user.id, [Validators.required]]
         })
     }

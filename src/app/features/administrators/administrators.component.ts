@@ -10,7 +10,7 @@ import {DialogFormComponent} from '../../components/dialog-form/dialog-form.comp
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {DialogService} from 'primeng/dynamicdialog';
 import {EntityType} from "../../enums/entity-type";
-import {FormType} from "../../enums/form-type";
+import {ActionType} from "../../enums/action-type";
 import {DialogInfoComponent} from "../../components/dialog-info/dialog-info.component";
 import {DatePipe} from "@angular/common";
 
@@ -53,7 +53,7 @@ export class AdministratorsComponent {
             header: 'Add New Administrator',
             data: {
                 contentType: EntityType.Administrator,
-                formType: FormType.Create
+                formType: ActionType.Create
             }
         });
     }
@@ -73,7 +73,7 @@ export class AdministratorsComponent {
             header: 'Update data for: ' + administrator.id,
             data: {
                 contentType: EntityType.Administrator,
-                formType: FormType.Update,
+                formType: ActionType.Update,
                 data: administrator
             }
         });

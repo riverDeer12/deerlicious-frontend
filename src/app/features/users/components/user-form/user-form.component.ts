@@ -3,7 +3,7 @@ import {ButtonModule} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
 import {CommonModule} from "@angular/common";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {FormType} from "../../../../enums/form-type";
+import {ActionType} from "../../../../enums/action-type";
 import {ValidationService} from "../../../../services/validation.service";
 import {Router} from "@angular/router";
 import {MessageService} from "primeng/api";
@@ -32,7 +32,7 @@ import {Administrator} from "../../../administrators/models/administrator";
     styleUrl: './user-form.component.scss'
 })
 export class UserFormComponent {
-    @Input() type!: FormType;
+    @Input() type!: ActionType;
     @Input() user!: User;
     @Input() redirectType!: RedirectType;
     @Input() dialogId!: string;
@@ -44,8 +44,8 @@ export class UserFormComponent {
 
     loadingData = false;
 
-    public get formType(): typeof FormType {
-        return FormType;
+    public get formType(): typeof ActionType {
+        return ActionType;
     }
 
     constructor(
@@ -83,27 +83,27 @@ export class UserFormComponent {
 
         }
 
-        this.type == FormType.Create ?
+        this.type == ActionType.Create ?
             this.createUser() : this.updateUser();
     }
 
-    private initForm = () => this.type == FormType.Create ?
+    private initForm = () => this.type == ActionType.Create ?
         this.initCreateForm() : this.initUpdateForm();
 
     private initCreateForm() {
         this.form = this.formBuilder.group({
-            username: ['', [Validators.required, Validators.maxLength(50)]],
+            username: ['', [Validators.required]],
             password: ['', Validators.required],
             confirmPassword: ['', [Validators.required, this.passwordMatchValidator]],
-            email: ['', [Validators.required, Validators.maxLength(50)]],
+            email: ['', [Validators.required]],
             roles: ['', Validators.required]
         })
     }
 
     private initUpdateForm() {
         this.form = this.formBuilder.group({
-            username: [this.user.username, [Validators.required, Validators.maxLength(50)]],
-            email: [this.user.email, [Validators.required, Validators.maxLength(50)]],
+            username: [this.user.username, [Validators.required]],
+            email: [this.user.email, [Validators.required]],
             roles: [this.user.roles.map(x => x.id), [Validators.required]]
         })
     }

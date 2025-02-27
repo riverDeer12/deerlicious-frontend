@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {FormType} from "../../../../../enums/form-type";
+import {ActionType} from "../../../../../enums/action-type";
 import {RedirectType} from "../../../../../enums/redirect-type";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ValidationService} from "../../../../../services/validation.service";
@@ -31,7 +31,7 @@ import {UserService} from "../../../../users/services/user.service";
     styleUrl: './role-form.component.scss'
 })
 export class RoleFormComponent {
-    @Input() type!: FormType;
+    @Input() type!: ActionType;
     @Input() role!: Role;
     @Input() redirectType!: RedirectType;
     @Input() dialogId!: string;
@@ -81,16 +81,16 @@ export class RoleFormComponent {
 
         }
 
-        this.type == FormType.Create ?
+        this.type == ActionType.Create ?
             this.createRole() : this.updateRole();
     }
 
-    private initForm = () => this.type == FormType.Create ?
+    private initForm = () => this.type == ActionType.Create ?
         this.initCreateForm() : this.initUpdateForm();
 
     private initCreateForm() {
         this.form = this.formBuilder.group({
-            name: ['', [Validators.required, Validators.maxLength(50)]],
+            name: ['', [Validators.required]],
             description: ['', [Validators.required]],
             permissions: ['', [Validators.required]],
             users: ['', [Validators.required]]
@@ -99,7 +99,7 @@ export class RoleFormComponent {
 
     private initUpdateForm() {
         this.form = this.formBuilder.group({
-            name: [this.role.name, [Validators.required, Validators.maxLength(50)]],
+            name: [this.role.name, [Validators.required]],
             description: [this.role.description, [Validators.required]],
             permissions: [this.role.permissions.map(x => x.id), [Validators.required]],
             users: [this.role.users.map(x => x.id), [Validators.required]]

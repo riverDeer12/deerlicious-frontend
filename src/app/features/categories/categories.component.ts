@@ -19,7 +19,7 @@ import {DialogService} from "primeng/dynamicdialog";
 import {DialogFormComponent} from "../../components/dialog-form/dialog-form.component";
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {EntityType} from "../../enums/entity-type";
-import {FormType} from "../../enums/form-type";
+import {ActionType} from "../../enums/action-type";
 import {DialogInfoComponent} from "../../components/dialog-info/dialog-info.component";
 
 @Component({
@@ -69,7 +69,7 @@ export class CategoriesComponent implements OnInit {
             header: 'Add New Category',
             data: {
                 contentType: EntityType.Category,
-                formType: FormType.Create
+                formType: ActionType.Create
             }
         });
     }
@@ -89,7 +89,7 @@ export class CategoriesComponent implements OnInit {
             header: 'Update data for: ' + category.id,
             data: {
                 contentType: EntityType.Category,
-                formType: FormType.Update,
+                formType: ActionType.Update,
                 data: category
             }
         });

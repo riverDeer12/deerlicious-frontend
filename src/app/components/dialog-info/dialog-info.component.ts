@@ -5,7 +5,7 @@ import {DialogInfoConfig} from "../../constants/dialog-info-config";
 import {CommonModule} from "@angular/common";
 import {Button} from "primeng/button";
 import {DialogFormComponent} from "../dialog-form/dialog-form.component";
-import {FormType} from "../../enums/form-type";
+import {ActionType} from "../../enums/action-type";
 import {KeyValueDisplayComponent} from "../key-value-display/key-value-display.component";
 
 @Component({
@@ -63,7 +63,7 @@ export class DialogInfoComponent {
             header: 'Update data for: ' + this.data["id"],
             data: {
                 contentType: this.contentType,
-                formType: FormType.Update,
+                formType: ActionType.Update,
                 data: this.data
             }
         });

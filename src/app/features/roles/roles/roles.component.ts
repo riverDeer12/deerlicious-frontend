@@ -9,7 +9,7 @@ import {DialogService} from "primeng/dynamicdialog";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {DialogFormComponent} from "../../../components/dialog-form/dialog-form.component";
 import {EntityType} from "../../../enums/entity-type";
-import {FormType} from "../../../enums/form-type";
+import {ActionType} from "../../../enums/action-type";
 import {DialogInfoComponent} from "../../../components/dialog-info/dialog-info.component";
 import {Role} from "./models/role";
 import {RoleService} from "./services/role.service";
@@ -65,7 +65,7 @@ export class RolesComponent {
             header: 'Add New Role',
             data: {
                 contentType: EntityType.Role,
-                formType: FormType.Create
+                formType: ActionType.Create
             }
         });
     }
@@ -85,7 +85,7 @@ export class RolesComponent {
             header: 'Update data for: ' + role.id,
             data: {
                 contentType: EntityType.Role,
-                formType: FormType.Update,
+                formType: ActionType.Update,
                 data: role
             }
         });

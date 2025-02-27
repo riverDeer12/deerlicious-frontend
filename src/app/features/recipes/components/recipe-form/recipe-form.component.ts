@@ -3,7 +3,7 @@ import {ButtonModule} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
 import {CommonModule} from "@angular/common";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {FormType} from "../../../../enums/form-type";
+import {ActionType} from "../../../../enums/action-type";
 import {ValidationService} from "../../../../services/validation.service";
 import {Router} from "@angular/router";
 import {MessageService} from "primeng/api";
@@ -32,7 +32,7 @@ import {Administrator} from "../../../administrators/models/administrator";
     styleUrl: './recipe-form.component.scss'
 })
 export class RecipeFormComponent {
-    @Input() type!: FormType;
+    @Input() type!: ActionType;
     @Input() recipe!: Recipe;
     @Input() redirectType!: RedirectType;
     @Input() dialogId!: string;
@@ -62,6 +62,8 @@ export class RecipeFormComponent {
     submit() {
         this.loadingData = true;
 
+        console.log(this.form.value);
+
         if (this.form.invalid) {
 
             this.form.markAllAsTouched();
@@ -79,25 +81,25 @@ export class RecipeFormComponent {
             return;
         }
 
-        this.type == FormType.Create ?
+        this.type == ActionType.Create ?
             this.createRecipe() : this.updateRecipe();
     }
 
-    private initForm = () => this.type == FormType.Create ?
+    private initForm = () => this.type == ActionType.Create ?
         this.initCreateForm() : this.initUpdateForm();
 
     private initCreateForm() {
         this.form = this.formBuilder.group({
-            title: ['', [Validators.required, Validators.maxLength(50)]],
-            content: ['', [Validators.required, Validators.maxLength(50)]],
+            title: ['', [Validators.required]],
+            content: ['', [Validators.required]],
             categories: ['', [Validators.required]]
         })
     }
 
     private initUpdateForm() {
         this.form = this.formBuilder.group({
-            title: [this.recipe.title, [Validators.required, Validators.maxLength(50)]],
-            content: [this.recipe.content, [Validators.required, Validators.maxLength(50)]],
+            title: [this.recipe.title, [Validators.required]],
+            content: [this.recipe.content, [Validators.required]],
             categories: [this.recipe.categories?.map(x => x.id), [Validators.required]]
         })
     }

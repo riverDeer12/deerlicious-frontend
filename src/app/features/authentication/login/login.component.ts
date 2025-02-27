@@ -70,8 +70,8 @@ export class LoginComponent {
 
     private initForm() {
         this.form = this.formBuilder.group({
-            username: ['', [Validators.required, Validators.maxLength(50)]],
-            password: ['', [Validators.required, Validators.maxLength(50)]],
+            username: ['', [Validators.required]],
+            password: ['', [Validators.required]],
             rememberMe: [false, [Validators.required]]
         })
     }

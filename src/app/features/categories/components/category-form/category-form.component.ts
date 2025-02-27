@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {FormType} from "../../../../enums/form-type";
+import {ActionType} from "../../../../enums/action-type";
 import {Category} from "../../models/category";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MessageService} from "primeng/api";
@@ -30,7 +30,7 @@ import {Administrator} from "../../../administrators/models/administrator";
     styleUrl: './category-form.component.scss'
 })
 export class CategoryFormComponent {
-    @Input() type!: FormType;
+    @Input() type!: ActionType;
     @Input() category!: Category;
     @Input() redirectType!: RedirectType;
     @Input() dialogId!: string;
@@ -76,25 +76,25 @@ export class CategoryFormComponent {
             return;
         }
 
-        this.type == FormType.Create ?
+        this.type == ActionType.Create ?
             this.createCategory() : this.updateCategory();
     }
 
-    private initForm = () => this.type == FormType.Create ?
+    private initForm = () => this.type == ActionType.Create ?
         this.initCreateForm() : this.initUpdateForm();
 
     private initCreateForm() {
         this.form = this.formBuilder.group({
-            name: ['', [Validators.required, Validators.maxLength(50)]],
-            description: ['', [Validators.required, Validators.maxLength(50)]],
+            name: ['', [Validators.required]],
+            description: ['', [Validators.required]],
             recipes: ['']
         })
     }
 
     private initUpdateForm() {
         this.form = this.formBuilder.group({
-            name: [this.category.name, [Validators.required, Validators.maxLength(50)]],
-            description: [this.category.description, [Validators.required, Validators.maxLength(50)]],
+            name: [this.category.name, [Validators.required]],
+            description: [this.category.description, [Validators.required]],
             recipes: [this.category.recipes.map(x => x.id)]
         })
     }

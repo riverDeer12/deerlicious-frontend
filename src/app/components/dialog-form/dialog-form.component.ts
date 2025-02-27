@@ -3,7 +3,7 @@ import {DialogModule} from "primeng/dialog";
 import {ButtonModule} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
 import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
-import {FormType} from "../../enums/form-type";
+import {ActionType} from "../../enums/action-type";
 import {CategoryFormComponent} from "../../features/categories/components/category-form/category-form.component";
 import {EntityType} from "../../enums/entity-type";
 import {CommonModule} from "@angular/common";
@@ -37,7 +37,7 @@ import {RoleFormComponent} from "../../features/roles/roles/components/role-form
 export class DialogFormComponent {
     contentType!: EntityType;
     dialogId!: string;
-    formType!: FormType;
+    formType!: ActionType;
     data: any;
 
     redirectType = RedirectType.CloseDialog;
