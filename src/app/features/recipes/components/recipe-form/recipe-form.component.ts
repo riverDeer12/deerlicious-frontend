@@ -61,8 +61,6 @@ export class RecipeFormComponent {
     submit() {
         this.loadingData = true;
 
-        console.log(this.form.value);
-
         if (this.form.invalid) {
 
             this.form.markAllAsTouched();
