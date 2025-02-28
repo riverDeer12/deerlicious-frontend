@@ -13,6 +13,7 @@ import {ActionType} from "../../enums/action-type";
 import {DialogInfoComponent} from "../../components/dialog-info/dialog-info.component";
 import {DialogService} from "primeng/dynamicdialog";
 import {ConfirmationService, MessageService} from "primeng/api";
+import {HelperService} from "../../services/helper.service";
 
 @Component({
     selector: 'app-users',
@@ -39,16 +40,14 @@ export class UsersComponent {
 
     constructor(private userService: UserService,
                 private dialogService: DialogService,
+                private helperService: HelperService,
                 private confirmationService: ConfirmationService,
                 private messageService: MessageService) {
     }
 
     ngOnInit(): void {
-        this.userService.getAllUsers().subscribe((response: User[]) => {
-            this.users = response.map((x: User) =>
-                Object.assign(new User(), x)
-            );
-        })
+        this.loadData();
+        this.getDataStatus();
     }
 
     onGlobalFilter(table: Table, event: Event) {
@@ -61,7 +60,7 @@ export class UsersComponent {
     }
 
     openCreateDialog() {
-        this.dialogService.open(DialogFormComponent, {
+        const dialogRef = this.dialogService.open(DialogFormComponent, {
             header: 'Add New User',
             data: {
                 contentType: EntityType.User,
@@ -69,6 +68,10 @@ export class UsersComponent {
                 dialogId: 'createUserForm'
             }
         });
+
+        dialogRef.onClose.subscribe((response: any) => {
+            this.loadData();
+        })
     }
 
     openInfoDialog(user: User) {
@@ -82,7 +85,7 @@ export class UsersComponent {
     }
 
     openUpdateDialog(user: User) {
-        this.dialogService.open(DialogFormComponent, {
+        const dialogRef = this.dialogService.open(DialogFormComponent, {
             header: 'Update data for: ' + user.id,
             data: {
                 contentType: EntityType.User,
@@ -91,6 +94,10 @@ export class UsersComponent {
                 data: user
             }
         });
+
+        dialogRef.onClose.subscribe((response: any) => {
+            this.loadData();
+        })
     }
 
     confirmDelete(user: User) {
@@ -125,5 +132,21 @@ export class UsersComponent {
                     });
             }
         });
+    }
+
+    private loadData() {
+        this.userService.getAllUsers().subscribe((response: User[]) => {
+            this.users = response.map((x: User) =>
+                Object.assign(new User(), x)
+            );
+        })
+    }
+
+    private getDataStatus() {
+        this.helperService.getDataStatus().subscribe((response: boolean) => {
+            if(response){
+                this.loadData()
+            }
+        })
     }
 }

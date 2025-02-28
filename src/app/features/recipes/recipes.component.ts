@@ -13,6 +13,7 @@ import {EntityType} from "../../enums/entity-type";
 import {ActionType} from "../../enums/action-type";
 import {DialogInfoComponent} from "../../components/dialog-info/dialog-info.component";
 import {DatePipe} from "@angular/common";
+import {HelperService} from "../../services/helper.service";
 
 @Component({
     selector: 'app-recipes',
@@ -37,16 +38,14 @@ export class RecipesComponent {
 
     constructor(private recipeService: RecipeService,
                 private messageService: MessageService,
+                private helperService: HelperService,
                 private confirmationService: ConfirmationService,
                 private dialogService: DialogService) {
     }
 
     ngOnInit(): void {
-        this.recipeService.getAllRecipes().subscribe((response: Recipe[]) => {
-            this.recipes = response.map((x: Recipe) =>
-                Object.assign(new Recipe(), x)
-            );
-        })
+        this.loadData();
+        this.getDataStatus();
     }
 
     onGlobalFilter(table: Table, event: Event) {
@@ -123,5 +122,21 @@ export class RecipesComponent {
                     });
             }
         });
+    }
+
+    private loadData() {
+        this.recipeService.getAllRecipes().subscribe((response: Recipe[]) => {
+            this.recipes = response.map((x: Recipe) =>
+                Object.assign(new Recipe(), x)
+            );
+        })
+    }
+
+    private getDataStatus() {
+        this.helperService.getDataStatus().subscribe((response: boolean) => {
+            if(response){
+                this.loadData()
+            }
+        })
     }
 }

@@ -144,6 +144,8 @@ export class RoleFormComponent {
                     summary: 'Success',
                     detail: 'Role is updated successfully.'
                 });
+
+                this.helperService.redirectUserAfterSubmit(this.redirectType, this.returnUrl, this.dialogId);
             },
             error: (error) => {
                 this.messageService.add({

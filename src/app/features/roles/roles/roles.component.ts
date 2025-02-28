@@ -13,6 +13,7 @@ import {ActionType} from "../../../enums/action-type";
 import {DialogInfoComponent} from "../../../components/dialog-info/dialog-info.component";
 import {Role} from "./models/role";
 import {RoleService} from "./services/role.service";
+import {HelperService} from "../../../services/helper.service";
 
 @Component({
     selector: 'app-roles',
@@ -39,16 +40,14 @@ export class RolesComponent {
 
     constructor(private roleService: RoleService,
                 private dialogService: DialogService,
+                private helperService: HelperService,
                 private confirmationService: ConfirmationService,
                 private messageService: MessageService) {
     }
 
     ngOnInit(): void {
-        this.roleService.getAllRoles().subscribe((response: Role[]) => {
-            this.roles = response.map((x: Role) =>
-                Object.assign(new Role(), x)
-            );
-        })
+        this.loadData();
+        this.getDataStatus();
     }
 
     onGlobalFilter(table: Table, event: Event) {
@@ -125,5 +124,21 @@ export class RolesComponent {
                     });
             }
         });
+    }
+
+    private getDataStatus() {
+        this.helperService.getDataStatus().subscribe((response: boolean) => {
+            if(response){
+                this.loadData()
+            }
+        })
+    }
+
+    private loadData() {
+        this.roleService.getAllRoles().subscribe((response: Role[]) => {
+            this.roles = response.map((x: Role) =>
+                Object.assign(new Role(), x)
+            );
+        })
     }
 }

@@ -2,11 +2,15 @@ import {Injectable} from '@angular/core';
 import {RedirectType} from "../enums/redirect-type";
 import {Router} from "@angular/router";
 import {DialogHelperService} from "./dialog-helper.service";
+import {Observable, Subject} from "rxjs";
+import {List} from "postcss/lib/list";
 
 @Injectable({
     providedIn: 'root'
 })
 export class HelperService {
+
+    dataRefresh: Subject<boolean> = new Subject<boolean>();
 
     constructor(private router: Router,
                 private dialogHelperService: DialogHelperService) {
@@ -32,4 +36,20 @@ export class HelperService {
                 return;
         }
     }
+
+    /**
+     * Method that listens on
+     * data refresh changes.
+     */
+    getDataStatus = () => this.dataRefresh;
+
+    /**
+     * Method that triggers
+     * data refresh if something
+     * changes regarding data status.
+     *
+     * @param refresh flag
+     * that triggers data load.
+     */
+    triggerDataRefresh = (refresh: boolean) => this.dataRefresh.next(refresh);
 }

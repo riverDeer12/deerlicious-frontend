@@ -7,6 +7,7 @@ import {Button} from "primeng/button";
 import {DialogFormComponent} from "../dialog-form/dialog-form.component";
 import {ActionType} from "../../enums/action-type";
 import {KeyValueDisplayComponent} from "../key-value-display/key-value-display.component";
+import {HelperService} from "../../services/helper.service";
 
 @Component({
     selector: 'app-dialog-info',
@@ -25,6 +26,7 @@ export class DialogInfoComponent {
 
     constructor(private dialogRef: DynamicDialogRef,
                 private dialogService: DialogService,
+                private helperService: HelperService,
                 private dialogConfig: DynamicDialogConfig) {
         this.initSettings();
         this.initContentType();
@@ -59,7 +61,7 @@ export class DialogInfoComponent {
 
         this.dialogRef.close();
 
-        this.dialogService.open(DialogFormComponent, {
+        const updateDialogRef = this.dialogService.open(DialogFormComponent, {
             header: 'Update data for: ' + this.data["id"],
             data: {
                 contentType: this.contentType,
@@ -67,6 +69,10 @@ export class DialogInfoComponent {
                 data: this.data
             }
         });
+
+        updateDialogRef.onClose.subscribe((response: any) => {
+            this.helperService.triggerDataRefresh(true);
+        })
     }
 
     cancel(): void {

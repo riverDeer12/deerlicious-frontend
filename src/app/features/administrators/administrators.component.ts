@@ -13,6 +13,7 @@ import {EntityType} from "../../enums/entity-type";
 import {ActionType} from "../../enums/action-type";
 import {DialogInfoComponent} from "../../components/dialog-info/dialog-info.component";
 import {DatePipe} from "@angular/common";
+import {HelperService} from "../../services/helper.service";
 
 @Component({
     selector: 'app-administrators',
@@ -30,13 +31,13 @@ export class AdministratorsComponent {
     constructor(private administratorService: AdministratorService,
                 private dialogService: DialogService,
                 private messageService: MessageService,
+                private helperService: HelperService,
                 private confirmationService: ConfirmationService) {
     }
 
     ngOnInit(): void {
-        this.administratorService.getAllAdministrators().subscribe((response: Administrator[]) => {
-            this.administrators = response.map((x: Administrator) => Object.assign(new Administrator(), x));
-        });
+        this.loadData();
+        this.getDataStatus();
     }
 
     onGlobalFilter(table: Table, event: Event) {
@@ -113,5 +114,19 @@ export class AdministratorsComponent {
                     });
             }
         });
+    }
+
+    private loadData() {
+        this.administratorService.getAllAdministrators().subscribe((response: Administrator[]) => {
+            this.administrators = response.map((x: Administrator) => Object.assign(new Administrator(), x));
+        });
+    }
+
+    private getDataStatus() {
+        this.helperService.getDataStatus().subscribe((response: boolean) => {
+            if (response) {
+                this.loadData()
+            }
+        })
     }
 }

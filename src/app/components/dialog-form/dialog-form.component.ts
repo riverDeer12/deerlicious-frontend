@@ -84,13 +84,10 @@ export class DialogFormComponent {
 
     /**
      * Set listener for
-     * close dialog trigger changes.
+     * close dialog event.
      */
     setDialogCloseListener(): void {
         this.dialogHelperService.getDialogStatus().subscribe((response: string) => {
-            console.log(this.dialogId);
-            console.log(response);
-
             if (this.dialogId === response as string) {
                 this.dialogRef.close(response);
             }

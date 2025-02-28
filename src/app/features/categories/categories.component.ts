@@ -21,6 +21,7 @@ import {ConfirmationService, MessageService} from 'primeng/api';
 import {EntityType} from "../../enums/entity-type";
 import {ActionType} from "../../enums/action-type";
 import {DialogInfoComponent} from "../../components/dialog-info/dialog-info.component";
+import {HelperService} from "../../services/helper.service";
 
 @Component({
     selector: 'app-categories',
@@ -53,15 +54,15 @@ export class CategoriesComponent implements OnInit {
     constructor(
         private categoryService: CategoryService,
         private messageService: MessageService,
+        private helperService: HelperService,
         private confirmationService: ConfirmationService,
         private dialogService: DialogService
     ) {
     }
 
     ngOnInit(): void {
-        this.categoryService.getAllCategories().subscribe((response: Category[]) => {
-            this.categories = response.map((x: Category) => Object.assign(new Category(), x));
-        });
+        this.loadData();
+        this.getDataStatus();
     }
 
     openCreateDialog() {
@@ -128,6 +129,20 @@ export class CategoriesComponent implements OnInit {
                         });
                     });
             }
+        });
+    }
+
+    private getDataStatus() {
+        this.helperService.getDataStatus().subscribe((response: boolean) => {
+            if (response) {
+                this.loadData();
+            }
+        })
+    }
+
+    private loadData() {
+        this.categoryService.getAllCategories().subscribe((response: Category[]) => {
+            this.categories = response.map((x: Category) => Object.assign(new Category(), x));
         });
     }
 }

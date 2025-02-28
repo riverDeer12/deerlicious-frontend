@@ -15,7 +15,6 @@ import {MultiSelect} from "primeng/multiselect";
 import {Role} from "../../../roles/roles/models/role";
 import {RoleService} from "../../../roles/roles/services/role.service";
 import {Password} from "primeng/password";
-import {Administrator} from "../../../administrators/models/administrator";
 
 @Component({
     selector: 'app-user-form',
@@ -144,6 +143,8 @@ export class UserFormComponent {
                     summary: 'Success',
                     detail: 'User is updated successfully.'
                 });
+
+                this.helperService.redirectUserAfterSubmit(this.redirectType, this.returnUrl, this.dialogId);
             },
             error: (error) => {
 
@@ -171,6 +172,6 @@ export class UserFormComponent {
     private passwordMatchValidator(form: FormGroup) {
         const password = form.get('password')?.value;
         const confirmPassword = form.get('confirmPassword')?.value;
-        return password === confirmPassword ? null : { mismatch: true };
+        return password === confirmPassword ? null : {mismatch: true};
     }
 }
