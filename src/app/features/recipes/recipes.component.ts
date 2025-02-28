@@ -58,7 +58,7 @@ export class RecipesComponent {
     }
 
     openCreateDialog() {
-        this.dialogService.open(DialogFormComponent, {
+        const dialogRef = this.dialogService.open(DialogFormComponent, {
             header: 'Add New Recipe',
             data: {
                 contentType: EntityType.Recipe,
@@ -66,6 +66,10 @@ export class RecipesComponent {
                 dialogId: 'createRecipeForm'
             }
         });
+
+        dialogRef.onClose.subscribe((response: any) => {
+            this.loadData();
+        })
     }
 
     openInfoDialog(recipe: Recipe) {
@@ -79,7 +83,7 @@ export class RecipesComponent {
     }
 
     openUpdateDialog(recipe: Recipe) {
-        this.dialogService.open(DialogFormComponent, {
+        const dialogRef = this.dialogService.open(DialogFormComponent, {
             header: 'Update data for: ' + recipe.id,
             data: {
                 contentType: EntityType.Recipe,
@@ -88,6 +92,10 @@ export class RecipesComponent {
                 data: recipe
             }
         });
+
+        dialogRef.onClose.subscribe((response: any) => {
+            this.loadData();
+        })
     }
 
     confirmDelete(recipe: Recipe) {

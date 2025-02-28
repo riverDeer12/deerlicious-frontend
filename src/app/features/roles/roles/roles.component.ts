@@ -60,7 +60,7 @@ export class RolesComponent {
     }
 
     openCreateDialog() {
-        this.dialogService.open(DialogFormComponent, {
+        const dialogRef = this.dialogService.open(DialogFormComponent, {
             header: 'Add New Role',
             data: {
                 contentType: EntityType.Role,
@@ -68,6 +68,10 @@ export class RolesComponent {
                 dialogId: 'createRoleForm'
             }
         });
+
+        dialogRef.onClose.subscribe((response: any) => {
+            this.loadData();
+        })
     }
 
     openInfoDialog(role: Role) {
@@ -81,7 +85,7 @@ export class RolesComponent {
     }
 
     openUpdateDialog(role: Role) {
-        this.dialogService.open(DialogFormComponent, {
+        const dialogRef = this.dialogService.open(DialogFormComponent, {
             header: 'Update data for: ' + role.id,
             data: {
                 contentType: EntityType.Role,
@@ -90,6 +94,10 @@ export class RolesComponent {
                 data: role
             }
         });
+
+        dialogRef.onClose.subscribe((response: any) => {
+            this.loadData();
+        })
     }
 
     confirmDelete(role: Role) {
@@ -128,7 +136,7 @@ export class RolesComponent {
 
     private getDataStatus() {
         this.helperService.getDataStatus().subscribe((response: boolean) => {
-            if(response){
+            if (response) {
                 this.loadData()
             }
         })

@@ -66,7 +66,7 @@ export class CategoriesComponent implements OnInit {
     }
 
     openCreateDialog() {
-        this.dialogService.open(DialogFormComponent, {
+        const dialogRef = this.dialogService.open(DialogFormComponent, {
             header: 'Add New Category',
             data: {
                 contentType: EntityType.Category,
@@ -74,6 +74,10 @@ export class CategoriesComponent implements OnInit {
                 dialogId: 'createCategoryForm'
             }
         });
+
+        dialogRef.onClose.subscribe((response: any) => {
+            this.loadData();
+        })
     }
 
     openInfoDialog(category: Category) {
@@ -87,7 +91,7 @@ export class CategoriesComponent implements OnInit {
     }
 
     openUpdateDialog(category: Category) {
-        this.dialogService.open(DialogFormComponent, {
+        const dialogRef = this.dialogService.open(DialogFormComponent, {
             header: 'Update data for: ' + category.id,
             data: {
                 contentType: EntityType.Category,
@@ -96,6 +100,10 @@ export class CategoriesComponent implements OnInit {
                 data: category
             }
         });
+
+        dialogRef.onClose.subscribe((response: any) => {
+            this.loadData();
+        })
     }
 
     confirmDelete(category: Category) {

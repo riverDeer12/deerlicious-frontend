@@ -50,7 +50,7 @@ export class AdministratorsComponent {
     }
 
     openCreateDialog() {
-        this.dialogService.open(DialogFormComponent, {
+        const dialogRef = this.dialogService.open(DialogFormComponent, {
             header: 'Add New Administrator',
             data: {
                 contentType: EntityType.Administrator,
@@ -58,6 +58,10 @@ export class AdministratorsComponent {
                 dialogId: 'createAdministratorForm'
             }
         });
+
+        dialogRef.onClose.subscribe((response: any) => {
+            this.loadData();
+        })
     }
 
     openInfoDialog(administrator: Administrator) {
@@ -71,7 +75,7 @@ export class AdministratorsComponent {
     }
 
     openUpdateDialog(administrator: Administrator) {
-        this.dialogService.open(DialogFormComponent, {
+        const dialogRef = this.dialogService.open(DialogFormComponent, {
             header: 'Update data for: ' + administrator.id,
             data: {
                 contentType: EntityType.Administrator,
@@ -80,6 +84,10 @@ export class AdministratorsComponent {
                 data: administrator
             }
         });
+
+        dialogRef.onClose.subscribe((response: any) => {
+            this.loadData();
+        })
     }
 
     confirmDelete(administrator: Administrator) {
