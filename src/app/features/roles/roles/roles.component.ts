@@ -65,7 +65,8 @@ export class RolesComponent {
             header: 'Add New Role',
             data: {
                 contentType: EntityType.Role,
-                formType: ActionType.Create
+                formType: ActionType.Create,
+                dialogId: 'createRoleForm'
             }
         });
     }
@@ -86,6 +87,7 @@ export class RolesComponent {
             data: {
                 contentType: EntityType.Role,
                 formType: ActionType.Update,
+                dialogId: 'updateRoleForm',
                 data: role
             }
         });

@@ -26,7 +26,7 @@ import {ConfirmationService, MessageService} from "primeng/api";
         DatePipe
     ],
     standalone: true,
-    providers:[
+    providers: [
         DialogService
     ],
     templateUrl: './users.component.html',
@@ -65,7 +65,8 @@ export class UsersComponent {
             header: 'Add New User',
             data: {
                 contentType: EntityType.User,
-                formType: ActionType.Create
+                formType: ActionType.Create,
+                dialogId: 'createUserForm'
             }
         });
     }
@@ -86,6 +87,7 @@ export class UsersComponent {
             data: {
                 contentType: EntityType.User,
                 formType: ActionType.Update,
+                dialogId: 'updateUserForm',
                 data: user
             }
         });

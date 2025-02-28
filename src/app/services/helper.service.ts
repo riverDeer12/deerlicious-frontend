@@ -21,15 +21,15 @@ export class HelperService {
      * @param dialogId id of dialog that needs to be closed.
      */
     redirectUserAfterSubmit(redirectType: RedirectType, returnUrl?: string, dialogId?: string): void {
-        if (redirectType == RedirectType.NoRedirect) {
-            return;
+        switch (redirectType) {
+            case RedirectType.NoRedirect:
+                return;
+            case RedirectType.Page:
+                this.router.navigateByUrl(returnUrl as string).then();
+                return;
+            case RedirectType.CloseDialog:
+                this.dialogHelperService.closeDialog(dialogId as string);
+                return;
         }
-
-        if (redirectType == RedirectType.Page) {
-            this.router.navigateByUrl(returnUrl as string).then();
-            return;
-        }
-
-        this.dialogHelperService.closeDialog(dialogId as string);
     }
 }

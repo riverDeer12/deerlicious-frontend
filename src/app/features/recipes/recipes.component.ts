@@ -63,7 +63,8 @@ export class RecipesComponent {
             header: 'Add New Recipe',
             data: {
                 contentType: EntityType.Recipe,
-                formType: ActionType.Create
+                formType: ActionType.Create,
+                dialogId: 'createRecipeForm'
             }
         });
     }
@@ -84,6 +85,7 @@ export class RecipesComponent {
             data: {
                 contentType: EntityType.Recipe,
                 formType: ActionType.Update,
+                dialogId: 'updateRecipeForm',
                 data: recipe
             }
         });

@@ -95,7 +95,7 @@ export class CategoryFormComponent {
         this.form = this.formBuilder.group({
             name: [this.category.name, [Validators.required]],
             description: [this.category.description, [Validators.required]],
-            recipes: [this.category.recipes.map(x => x.id)]
+            recipes: [this.category.recipes?.map(x => x.id)]
         })
     }
 

@@ -104,7 +104,7 @@ export class UserFormComponent {
         this.form = this.formBuilder.group({
             username: [this.user.username, [Validators.required]],
             email: [this.user.email, [Validators.required]],
-            roles: [this.user.roles.map(x => x.id), [Validators.required]]
+            roles: [this.user.roles?.map(x => x.id), [Validators.required]]
         })
     }
 

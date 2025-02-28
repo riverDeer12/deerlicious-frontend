@@ -88,6 +88,9 @@ export class DialogFormComponent {
      */
     setDialogCloseListener(): void {
         this.dialogHelperService.getDialogStatus().subscribe((response: string) => {
+            console.log(this.dialogId);
+            console.log(response);
+
             if (this.dialogId === response as string) {
                 this.dialogRef.close(response);
             }

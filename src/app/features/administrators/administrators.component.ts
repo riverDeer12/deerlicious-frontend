@@ -53,7 +53,8 @@ export class AdministratorsComponent {
             header: 'Add New Administrator',
             data: {
                 contentType: EntityType.Administrator,
-                formType: ActionType.Create
+                formType: ActionType.Create,
+                dialogId: 'createAdministratorForm'
             }
         });
     }
@@ -74,6 +75,7 @@ export class AdministratorsComponent {
             data: {
                 contentType: EntityType.Administrator,
                 formType: ActionType.Update,
+                dialogId: 'updateAdministratorForm',
                 data: administrator
             }
         });

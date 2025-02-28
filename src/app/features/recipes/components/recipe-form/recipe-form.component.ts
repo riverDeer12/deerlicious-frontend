@@ -15,7 +15,6 @@ import {Editor} from "primeng/editor";
 import {MultiSelect} from "primeng/multiselect";
 import {Category} from "../../../categories/models/category";
 import {CategoryService} from "../../../categories/services/category.service";
-import {Administrator} from "../../../administrators/models/administrator";
 
 @Component({
     selector: 'app-recipe-form',

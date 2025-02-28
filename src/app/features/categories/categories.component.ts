@@ -69,7 +69,8 @@ export class CategoriesComponent implements OnInit {
             header: 'Add New Category',
             data: {
                 contentType: EntityType.Category,
-                formType: ActionType.Create
+                formType: ActionType.Create,
+                dialogId: 'createCategoryForm'
             }
         });
     }
@@ -90,6 +91,7 @@ export class CategoriesComponent implements OnInit {
             data: {
                 contentType: EntityType.Category,
                 formType: ActionType.Update,
+                dialogId: 'updateCategoryForm',
                 data: category
             }
         });
