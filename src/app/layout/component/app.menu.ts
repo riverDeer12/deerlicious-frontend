@@ -27,24 +27,24 @@ export class AppMenu {
             },
             {
                 label: 'Administrators',
-                items: [{label: 'List of Administrators', icon: 'pi pi-fw pi-users', routerLink: ['/administrators']}]
+                items: [{label: 'List of Administrators', icon: 'pi pi-fw pi-users', routerLink: ['/admin/administrators']}]
             },
             {
                 label: 'Categories',
-                items: [{label: 'List of Categories', icon: 'pi pi-fw pi-bookmark', routerLink: ['/categories']}]
+                items: [{label: 'List of Categories', icon: 'pi pi-fw pi-bookmark', routerLink: ['/admin/categories']}]
             },
             {
                 label: 'Recipes',
-                items: [{label: 'List of Recipes', icon: 'pi pi-fw pi-book', routerLink: ['/recipes']}]
+                items: [{label: 'List of Recipes', icon: 'pi pi-fw pi-book', routerLink: ['/admin/recipes']}]
             },
             {
                 label: 'Users',
                 items: [
                     {
-                        label: 'List of Users', icon: 'pi pi-fw pi-users', routerLink: ['/users']
+                        label: 'List of Users', icon: 'pi pi-fw pi-users', routerLink: ['/admin/users']
                     },
                     {
-                        label: 'List of Roles', icon: 'pi pi-fw pi-crown', routerLink: ['/users/roles']
+                        label: 'List of Roles', icon: 'pi pi-fw pi-crown', routerLink: ['/admin/users/roles']
                     }
                 ]
             }

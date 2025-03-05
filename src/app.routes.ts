@@ -11,11 +11,13 @@ import {AdministratorsComponent} from "./app/features/administrators/administrat
 import {UsersComponent} from "./app/features/users/users.component";
 import {CategoriesRoutes} from "./app/features/categories/categories.routes";
 import {Error} from "./app/components/error/error";
+import {AdminGuard} from "./app/guards/admin.guard";
 
 export const appRoutes: Routes = [
     {
-        path: '',
+        path: 'admin',
         component: AppLayout,
+        canActivate: AdminGuard,
         children: [
             {path: '', component: Dashboard},
             {
