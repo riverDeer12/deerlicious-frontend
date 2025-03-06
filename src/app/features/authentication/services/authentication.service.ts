@@ -23,18 +23,13 @@ export class AuthenticationService {
     resetPassword = (request: DefaultPostRequest) =>
         this.http.post<AuthResponse>(environment.apiUrl + '/authentication/reset-password', request)
 
+
     isUserLogged(): boolean {
-        const tokenStorageValue = localStorage.getItem('token');
-
-        if (!tokenStorageValue) {
-            return false;
-        }
-
-        const decodedToken = jwtDecode(tokenStorageValue) as AuthResponse;
+        const token = this.getAuthTokenFromLocalStorage();
 
         const now = Date.now().valueOf() / 1000
 
-        return decodedToken.exp >= now;
+        return token.exp >= now;
     }
 
     /**
@@ -45,5 +40,21 @@ export class AuthenticationService {
     logOut(redirectUrl: string): void {
         localStorage.removeItem('token');
         this.router.navigateByUrl(redirectUrl).then();
+    }
+
+    getLoggedUserPermissions(): string[] {
+        const token = this.getAuthTokenFromLocalStorage();
+        return token.permissions;
+    }
+
+    private getAuthTokenFromLocalStorage(): AuthResponse {
+        const tokenStorageValue = localStorage.getItem('token');
+
+        if (!tokenStorageValue) {
+            this.router.navigateByUrl('/authentication/login').then();
+            return;
+        }
+
+        return jwtDecode(tokenStorageValue) as AuthResponse;
     }
 }

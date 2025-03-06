@@ -12,12 +12,14 @@ import {UsersComponent} from "./app/features/users/users.component";
 import {CategoriesRoutes} from "./app/features/categories/categories.routes";
 import {Error} from "./app/components/error/error";
 import {AdminGuard} from "./app/guards/admin.guard";
+import {Permission} from "./app/features/roles/roles/models/permission";
+import {Permissions} from "./app/constants/permissions";
 
 export const appRoutes: Routes = [
     {
         path: 'admin',
         component: AppLayout,
-        canActivate: AdminGuard,
+        canActivate: [AdminGuard],
         children: [
             {path: '', component: Dashboard},
             {
@@ -25,24 +27,36 @@ export const appRoutes: Routes = [
                 loadChildren: () =>
                     import('./app/features/categories/categories.routes')
                         .then((m) => m.CategoriesRoutes),
+                data: {
+                    permissions: Permissions.CanGetCategories
+                }
             },
             {
                 path: 'recipes',
                 loadChildren: () =>
                     import('./app/features/recipes/recipes.routes')
                         .then((m) => m.RecipesRoutes),
+                data: {
+                    permissions: Permissions.CanGetRecipes
+                }
             },
             {
                 path: 'administrators',
                 loadChildren: () =>
                     import('./app/features/administrators/administrators.routes')
                         .then((m) => m.AdministratorsRoutes),
+                data: {
+                    permissions: Permissions.CanGetAdministrators
+                }
             },
             {
                 path: 'users',
                 loadChildren: () =>
                     import('./app/features/users/users.routes')
                         .then((m) => m.UsersRoutes),
+                data: {
+                    permissions: Permissions.CanGetUsers
+                }
             }
         ]
     },

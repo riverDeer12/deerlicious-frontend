@@ -6,4 +6,5 @@ export class AuthResponse {
     role!: string;
     nbf!: number;
     iat!: number;
+    permissions!: string[];
 }
