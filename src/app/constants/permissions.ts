@@ -19,5 +19,9 @@ export class Permissions {
     static readonly CanCreateUser = "CanCreateUser";
     static readonly CanUpdateUser = "CanUpdateUser";
     static readonly CanDeleteUser = "CanDeleteUser";
+    static readonly CanGetRoles = "CanGetRoles";
+    static readonly CanCreateRole = "CanCreateRole";
+    static readonly CanUpdateRole = "CanUpdateRole";
+    static readonly CanDeleteRole = "CanDeleteRole";
 }
 

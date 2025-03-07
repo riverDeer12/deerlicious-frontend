@@ -1,21 +1,16 @@
-import {
-    ActivatedRouteSnapshot,
-    CanActivate,
-    CanActivateFn,
-    GuardResult,
-    MaybeAsync, Router,
-    RouterStateSnapshot
-} from '@angular/router';
-import {Injectable} from "@angular/core";
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import {AuthenticationService} from "../features/authentication/services/authentication.service";
 import {Roles} from "../constants/roles";
+
 /**
  * Auth guard for admin routes.
  */
 @Injectable({
     providedIn: 'root'
 })
-export class AdminGuard implements CanActivate {
+export class AccessGuard implements CanActivate {
+    requiredPermissions!: string[];
 
     constructor(private authenticationService: AuthenticationService,
                 private router: Router) {
@@ -31,6 +26,8 @@ export class AdminGuard implements CanActivate {
         route: ActivatedRouteSnapshot,
         _state: RouterStateSnapshot
     ): boolean | Promise<boolean> {
+
+        this.requiredPermissions = route.data['permissions'] as string[];
 
         if (!this.authenticationService.isUserLogged()) {
             this.router.navigateByUrl('/authentication/login').then();
@@ -48,8 +45,7 @@ export class AdminGuard implements CanActivate {
      * @returns true if user has valid required policies.
      */
     validateAccess(): boolean {
-        const adminRoles = [Roles.SuperAdmin, Roles.Administrator];
-        const userRole = this.authenticationService.getLoggedUserRole();
-        return adminRoles.includes(userRole);
+        const userPermissions = this.authenticationService.getLoggedUserPermissions();
+        return this.requiredPermissions.every(policy => userPermissions.includes(policy));
     }
 }

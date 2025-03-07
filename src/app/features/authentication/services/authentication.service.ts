@@ -47,14 +47,19 @@ export class AuthenticationService {
         return token.permissions;
     }
 
+    getLoggedUserRole() {
+        const token = this.getAuthTokenFromLocalStorage();
+        return token.role;
+    }
+
     private getAuthTokenFromLocalStorage(): AuthResponse {
         const tokenStorageValue = localStorage.getItem('token');
 
         if (!tokenStorageValue) {
             this.router.navigateByUrl('/authentication/login').then();
-            return;
+            return new AuthResponse();
+        } else {
+            return jwtDecode(tokenStorageValue) as AuthResponse;
         }
-
-        return jwtDecode(tokenStorageValue) as AuthResponse;
     }
 }
