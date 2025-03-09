@@ -23,12 +23,8 @@ export const appRoutes: Routes = [
         canActivate: [AdminGuard],
         children: [
             {
-                path: '',
-                component: Dashboard,
-                canActivate: [AccessGuard],
-                data: {
-                    permissions: [Permissions.CanGetCategories]
-                }
+                path: 'dashboard',
+                component: Dashboard
             },
             {
                 path: 'categories',

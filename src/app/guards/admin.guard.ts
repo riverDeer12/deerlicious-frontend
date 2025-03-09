@@ -50,7 +50,6 @@ export class AdminGuard implements CanActivate {
     validateAccess(): boolean {
         const adminRoles = [Roles.SuperAdmin, Roles.Administrator];
         const userRole = this.authenticationService.getLoggedUserRole();
-        console.log('Admin guard passed. User logged as: ', userRole);
         return adminRoles.includes(userRole);
     }
 }

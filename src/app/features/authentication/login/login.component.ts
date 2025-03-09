@@ -87,7 +87,7 @@ export class LoginComponent {
 
             localStorage.setItem('token', this.authResponse.token)
 
-            this.router.navigateByUrl('admin').then();
+            this.router.navigateByUrl('admin/dashboard').then();
 
             this.loadingData = false;
         }, error => {
