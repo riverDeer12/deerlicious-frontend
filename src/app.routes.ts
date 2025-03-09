@@ -34,11 +34,7 @@ export const appRoutes: Routes = [
                 path: 'categories',
                 loadChildren: () =>
                     import('./app/features/categories/categories.routes')
-                        .then((m) => m.CategoriesRoutes),
-                canActivate: [AdminGuard],
-                data: {
-                    permissions: [Permissions.CanGetCategories]
-                }
+                        .then((m) => m.CategoriesRoutes)
             },
             {
                 path: 'recipes',
