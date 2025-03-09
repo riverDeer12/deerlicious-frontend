@@ -20,7 +20,7 @@ export const appRoutes: Routes = [
     {
         path: 'admin',
         component: AppLayout,
-        canActivateChild: [AdminGuard],
+        canActivate: [AdminGuard],
         children: [
             {
                 path: '',
