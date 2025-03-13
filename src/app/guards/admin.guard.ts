@@ -49,7 +49,12 @@ export class AdminGuard implements CanActivate {
      */
     validateAccess(): boolean {
         const adminRoles = [Roles.SuperAdmin, Roles.Administrator];
-        const userRole = this.authenticationService.getLoggedUserRole();
-        return adminRoles.includes(userRole);
+        const userRoles = this.authenticationService.getLoggedUserRoles();
+
+        if(userRoles.includes(Roles.SuperAdmin)) {
+            return true;
+        }
+
+        return userRoles.some(role => adminRoles.some(adminRole => role.includes(adminRole)));
     }
 }

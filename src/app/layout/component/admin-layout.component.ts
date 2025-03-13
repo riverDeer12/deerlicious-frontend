@@ -23,7 +23,7 @@ import { LayoutService } from '../service/layout.service';
         <div class="layout-mask animate-fadein"></div>
     </div> `
 })
-export class AppLayout {
+export class AdminLayout {
     overlayMenuOpenSubscription: Subscription;
 
     menuOutsideClickListener: any;

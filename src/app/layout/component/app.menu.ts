@@ -3,6 +3,8 @@ import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {MenuItem} from 'primeng/api';
 import {AppMenuitem} from './app.menuitem';
+import {AuthenticationService} from "../../features/authentication/services/authentication.service";
+import {Permissions} from "../../constants/permissions";
 
 @Component({
     selector: 'app-menu',
@@ -19,6 +21,9 @@ import {AppMenuitem} from './app.menuitem';
 export class AppMenu {
     model: MenuItem[] = [];
 
+    constructor(private authenticationService: AuthenticationService) {
+    }
+
     ngOnInit() {
         this.model = [
             {
@@ -27,7 +32,13 @@ export class AppMenu {
             },
             {
                 label: 'Administrators',
-                items: [{label: 'List of Administrators', icon: 'pi pi-fw pi-users', routerLink: ['/admin/administrators']}]
+                visible: this.authenticationService
+                    .checkPermission(Permissions.CanGetAdministrators),
+                items: [{
+                    label: 'List of Administrators',
+                    icon: 'pi pi-fw pi-users',
+                    routerLink: ['/admin/administrators']
+                }]
             },
             {
                 label: 'Categories',

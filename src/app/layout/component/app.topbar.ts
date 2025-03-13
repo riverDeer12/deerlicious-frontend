@@ -75,5 +75,6 @@ export class AppTopbar {
             .update((state) => ({...state, darkTheme: !state.darkTheme}));
     }
 
-    logOut = () => this.authenticationService.logOut('authentication/login');
+    logOut = () =>
+        this.authenticationService.logOut('/authentication/login');
 }

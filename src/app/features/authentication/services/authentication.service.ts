@@ -47,7 +47,7 @@ export class AuthenticationService {
         return token.permissions;
     }
 
-    getLoggedUserRole() {
+    getLoggedUserRoles() {
         const token = this.getAuthTokenFromLocalStorage();
         return token.role;
     }
@@ -61,5 +61,16 @@ export class AuthenticationService {
         } else {
             return jwtDecode(tokenStorageValue) as AuthResponse;
         }
+    }
+
+    /**
+     * Check if user has permission
+     * to see some content.
+     * @param permission - permission name.
+     * @see {@link /src/app/constants/permissions.ts} for a list of permission constants.
+     */
+    checkPermission(permission: string) {
+        const userPermissions = this.getLoggedUserPermissions();
+        return userPermissions.some(userPermission => permission);
     }
 }
