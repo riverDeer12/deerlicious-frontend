@@ -52,6 +52,12 @@ export class AuthenticationService {
         return token.role;
     }
 
+
+    getLoggedUserUsername(): string {
+        const token = this.getAuthTokenFromLocalStorage();
+        return token.name;
+    }
+
     private getAuthTokenFromLocalStorage(): AuthResponse {
         const tokenStorageValue = localStorage.getItem('token');
 

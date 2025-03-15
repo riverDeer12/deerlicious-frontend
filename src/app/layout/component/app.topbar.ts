@@ -23,6 +23,7 @@ import {AuthenticationService} from "../../features/authentication/services/auth
             </div>
 
             <div class="layout-topbar-actions">
+
                 <div class="layout-config-menu">
                     <button type="button" class="layout-topbar-action" (click)="toggleDarkMode()">
                         <i [ngClass]="{ 'pi ': true, 'pi-moon': layoutService.isDarkTheme(), 'pi-sun': !layoutService.isDarkTheme() }"></i>
@@ -51,10 +52,8 @@ import {AuthenticationService} from "../../features/authentication/services/auth
 
                 <div class="layout-topbar-menu hidden lg:block">
                     <div class="layout-topbar-menu-content">
-                        <button type="button" class="layout-topbar-action">
-                            <i class="pi pi-inbox"></i>
-                            <span>Messages</span>
-                        </button>
+                        <span class="pt-2">You are logged in as: <strong>{{ username }}</strong> </span>
+
                         <button (click)="logOut()" type="button" class="layout-topbar-action">
                             <i class="pi pi-sign-out"></i>
                         </button>
@@ -66,8 +65,11 @@ import {AuthenticationService} from "../../features/authentication/services/auth
 export class AppTopbar {
     items!: MenuItem[];
 
+    username!: string;
+
     constructor(public layoutService: LayoutService,
                 private authenticationService: AuthenticationService) {
+        this.username = this.authenticationService.getLoggedUserUsername();
     }
 
     toggleDarkMode() {

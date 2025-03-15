@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {MenuItem} from 'primeng/api';
@@ -18,7 +18,7 @@ import {Permissions} from "../../constants/permissions";
             </ng-container>
         </ul> `
 })
-export class AppMenu {
+export class AppMenu implements OnInit {
     model: MenuItem[] = [];
 
     constructor(private authenticationService: AuthenticationService) {
@@ -42,14 +42,20 @@ export class AppMenu {
             },
             {
                 label: 'Categories',
+                visible: this.authenticationService
+                    .checkPermission(Permissions.CanGetCategories),
                 items: [{label: 'List of Categories', icon: 'pi pi-fw pi-bookmark', routerLink: ['/admin/categories']}]
             },
             {
                 label: 'Recipes',
+                visible: this.authenticationService
+                    .checkPermission(Permissions.CanGetRecipes),
                 items: [{label: 'List of Recipes', icon: 'pi pi-fw pi-book', routerLink: ['/admin/recipes']}]
             },
             {
                 label: 'Users',
+                visible: this.authenticationService
+                    .checkPermission(Permissions.CanGetUsers),
                 items: [
                     {
                         label: 'List of Users', icon: 'pi pi-fw pi-users', routerLink: ['/admin/users']
