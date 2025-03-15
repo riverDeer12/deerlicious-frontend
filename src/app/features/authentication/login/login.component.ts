@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from "../services/authentication.service";
 import {ButtonModule} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
@@ -27,7 +27,7 @@ import {AppFloatingConfigurator} from "../../../layout/component/app.floatingcon
     templateUrl: './login.component.html',
     styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
     form!: FormGroup;
 
     loadingData = false;
@@ -43,7 +43,12 @@ export class LoginComponent {
     }
 
     ngOnInit(): void {
-        this.initForm();
+        if (this.authenticationService.isUserLogged()) {
+            this.router.navigateByUrl("/admin/dashboard").then();
+            return;
+        } else {
+            this.initForm();
+        }
     }
 
     submit() {

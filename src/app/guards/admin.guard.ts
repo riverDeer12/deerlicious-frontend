@@ -1,9 +1,7 @@
 import {
     ActivatedRouteSnapshot,
     CanActivate,
-    CanActivateFn,
-    GuardResult,
-    MaybeAsync, Router,
+    Router,
     RouterStateSnapshot
 } from '@angular/router';
 import {Injectable} from "@angular/core";
