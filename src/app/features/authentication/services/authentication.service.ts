@@ -77,6 +77,6 @@ export class AuthenticationService {
      */
     checkPermission(permission: string) {
         const userPermissions = this.getLoggedUserPermissions();
-        return userPermissions.some(userPermission => permission);
+        return userPermissions.includes(permission);
     }
 }
