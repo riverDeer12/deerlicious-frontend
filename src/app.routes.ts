@@ -9,6 +9,16 @@ import {AdminGuard} from "./app/guards/admin.guard";
 
 export const appRoutes: Routes = [
     {
+        path: '',
+        component: Landing
+    },
+    {
+        path: 'authentication',
+        loadChildren: () =>
+            import('./app/features/authentication/authentication.routes')
+                .then((m) => m.AuthenticationRoutes),
+    },
+    {
         path: 'admin',
         component: AdminLayout,
         canActivate: [AdminGuard],
@@ -43,13 +53,6 @@ export const appRoutes: Routes = [
             }
         ]
     },
-    {
-        path: 'authentication',
-        loadChildren: () =>
-            import('./app/features/authentication/authentication.routes')
-                .then((m) => m.AuthenticationRoutes),
-    },
-    {path: 'landing', component: Landing},
     {path: 'not-found', component: NotFound},
     {path: 'forbidden', component: Forbidden},
     {path: 'error', component: Error},
